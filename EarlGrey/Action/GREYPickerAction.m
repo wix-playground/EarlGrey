@@ -24,7 +24,6 @@
 #import "Matcher/GREYAllOf.h"
 #import "Matcher/GREYMatchers.h"
 #import "Matcher/GREYNot.h"
-#import "Synchronization/GREYTimedIdlingResource.h"
 
 @implementation GREYPickerAction {
   /**
@@ -106,11 +105,6 @@
               respondsToSelector:@selector(pickerView:didSelectRow:inComponent:)]) {
         [pickerView.delegate pickerView:pickerView didSelectRow:rowIndex inComponent:_column];
       }
-      // UIPickerView does a delayed animation. We don't track delayed animations, therefore
-      // we have to track it manually
-      [GREYTimedIdlingResource resourceForObject:pickerView
-                           thatIsBusyForDuration:0.5
-                                            name:@"UIPickerView"];
       return YES;
     }
   }

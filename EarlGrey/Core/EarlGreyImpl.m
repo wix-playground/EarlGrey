@@ -16,15 +16,12 @@
 
 #import "Core/EarlGreyImpl.h"
 
-#import "Common/GREYAnalytics.h"
 #import "Common/GREYAppleInternals.h"
 #import "Common/GREYError.h"
 #import "Common/GREYErrorConstants.h"
 #import "Common/GREYFatalAsserts.h"
-#import "Core/GREYKeyboard.h"
 #import "Event/GREYSyntheticEvents.h"
 #import "Exception/GREYDefaultFailureHandler.h"
-#import "Synchronization/GREYUIThreadExecutor.h"
 #import "EarlGrey.h"
 
 NSString *const kGREYFailureHandlerKey = @"GREYFailureHandlerKey";
@@ -55,7 +52,7 @@ NSString *const kGREYKeyboardDismissalErrorDomain = @"com.google.earlgrey.Keyboa
   if ([failureHandler respondsToSelector:invocationFileAndLineSEL]) {
     [failureHandler setInvocationFile:fileName andInvocationLine:lineNumber];
   }
-  [[GREYAnalytics sharedInstance] didInvokeEarlGrey];
+
   return instance;
 }
 
@@ -94,34 +91,6 @@ NSString *const kGREYKeyboardDismissalErrorDomain = @"com.google.earlgrey.Keyboa
 
 - (BOOL)shakeDeviceWithError:(__strong NSError **)errorOrNil {
   return [GREYSyntheticEvents shakeDeviceWithError:errorOrNil];
-}
-
-- (BOOL)dismissKeyboardWithError:(__strong NSError **)errorOrNil {
-  __block NSError *executionError;
-  [[GREYUIThreadExecutor sharedInstance] executeSync:^{
-    if (![GREYKeyboard isKeyboardShown]) {
-      executionError = GREYErrorMake(kGREYKeyboardDismissalErrorDomain,
-                                     GREYKeyboardDismissalFailedErrorCode,
-                                     @"Failed to dismiss keyboard since it was not showing.");
-    } else {
-      [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder)
-                                                 to:nil
-                                               from:nil
-                                           forEvent:nil];
-    }
-  } error:&executionError];
-
-  if (executionError) {
-    if (errorOrNil) {
-      *errorOrNil = executionError;
-    } else {
-      I_GREYFail(@"%@\nError: %@",
-                 @"Dismising keyboard errored out.",
-                 [GREYError grey_nestedDescriptionForError:executionError]);
-    }
-    return NO;
-  }
-  return YES;
 }
 
 #pragma mark - Private

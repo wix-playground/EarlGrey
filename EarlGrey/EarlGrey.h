@@ -65,9 +65,3 @@
 #import <EarlGrey/GREYDataEnumerator.h>
 #import <EarlGrey/GREYProvider.h>
 #import <EarlGrey/GREYCondition.h>
-#import <EarlGrey/GREYDispatchQueueIdlingResource.h>
-#import <EarlGrey/GREYManagedObjectContextIdlingResource.h>
-#import <EarlGrey/GREYNSTimerIdlingResource.h>
-#import <EarlGrey/GREYOperationQueueIdlingResource.h>
-#import <EarlGrey/GREYSyncAPI.h>
-#import <EarlGrey/GREYUIThreadExecutor.h>

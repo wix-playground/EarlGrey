@@ -21,22 +21,14 @@
 
 #import "Additions/NSObject+GREYAdditions.h"
 #import "Additions/UITouch+GREYAdditions.h"
-#import "Additions/UIWebView+GREYAdditions.h"
 #import "Assertion/GREYAssertionDefines.h"
 #import "Common/GREYAppleInternals.h"
 #import "Common/GREYDefines.h"
 #import "Common/GREYFatalAsserts.h"
 #import "Common/GREYThrowDefines.h"
 #import "Event/GREYZeroToleranceTimer.h"
-#import "Synchronization/GREYRunLoopSpinner.h"
 
 const NSTimeInterval kGREYTouchInjectionFrequency = 60.0;
-
-/**
- *  Maximum time to wait for UIWebView delegates to get called after the
- *  last touch (i.e. @c isLastTouch is @c YES).
- */
-static const NSTimeInterval kGREYMaxIntervalForUIWebViewResponse = 2.0;
 
 /**
  *  The time interval in seconds between each touch injection.
@@ -110,15 +102,6 @@ static const NSTimeInterval kGREYTouchInjectionInterval = 1.0 / kGREYTouchInject
   if (_state == kGREYTouchInjectorPendingStart || _state == kGREYTouchInjectorStopped) {
     [self startInjecting];
   }
-
-  // Now wait for it to finish.
-  GREYRunLoopSpinner *runLoopSpinner = [[GREYRunLoopSpinner alloc] init];
-  runLoopSpinner.timeout = DBL_MAX;
-  runLoopSpinner.minRunLoopDrains = 0;
-  runLoopSpinner.maxSleepInterval = DBL_MAX;
-  [runLoopSpinner spinWithStopConditionBlock:^BOOL {
-    return (_state == kGREYTouchInjectorStopped);
-  }];
 }
 
 #pragma mark - GREYZeroToleranceTimer
@@ -282,17 +265,7 @@ static const NSTimeInterval kGREYTouchInjectionInterval = 1.0 / kGREYTouchInject
           touchViewContainsWKWebView = YES;
         }
         if (touchInfo.phase == GREYTouchInfoPhaseTouchEnded) {
-          UIWebView *touchWebView = nil;
-          if ([currentTouchView isKindOfClass:[UIWebView class]]) {
-            touchWebView = (UIWebView *)currentTouchView;
-          } else {
-            NSArray *webViewContainers =
-                [currentTouchView grey_containersAssignableFromClass:[UIWebView class]];
-            if (webViewContainers.count > 0) {
-              touchWebView = (UIWebView *)[webViewContainers firstObject];
-            }
-          }
-          [touchWebView grey_pendingInteractionForTime:kGREYMaxIntervalForUIWebViewResponse];
+		
         }
       }
     } @catch (NSException *e) {

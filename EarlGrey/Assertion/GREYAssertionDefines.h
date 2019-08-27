@@ -28,7 +28,6 @@
 #import <EarlGrey/GREYDefines.h>
 #import <EarlGrey/GREYFailureHandler.h>
 #import <EarlGrey/GREYFrameworkException.h>
-#import <EarlGrey/GREYUIThreadExecutor.h>
 
 /**
  *  Exposes internal method to get the failure handler registered with EarlGrey.
@@ -40,168 +39,6 @@ GREY_EXPORT id<GREYFailureHandler> grey_getFailureHandler(void);
  *  These Macros are safe to call from anywhere within a testcase.
  */
 #pragma mark - Public Macros
-
-/**
- *  Generates a failure with the provided @c __description if the expression @c __a1 evaluates to
- *  @c NO.
- *
- *  @param __a1          The expression that should be evaluated.
- *  @param __description Description to print if @c __a1 evaluates to @c NO. May be a format
- *                       string, in which case the variable args will be required.
- *  @param ...           Variable args for @c __description if it is a format string.
- */
-#define GREYAssert(__a1, __description, ...) \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  NSString *timeoutString__ = @"Couldn't assert that (" #__a1 ") is true."; \
-  I_GREYWaitForIdle(timeoutString__); \
-  I_GREYAssertTrue((__a1), (__description), ##__VA_ARGS__); \
-})
-
-/**
- *  Generates a failure with the provided @c __description if the expression @c __a1 evaluates to
- *  @c NO.
- *
- *  @param __a1          The expression that should be evaluated.
- *  @param __description Description to print if @c __a1 evaluates to @c NO. May be a format
- *                       string, in which case the variable args will be required.
- *  @param ...           Variable args for @c __description if it is a format string.
- */
-#define GREYAssertTrue(__a1, __description, ...) \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  NSString *timeoutString__ = @"Couldn't assert that (" #__a1 ") is true."; \
-  I_GREYWaitForIdle(timeoutString__); \
-  I_GREYAssertTrue((__a1), (__description), ##__VA_ARGS__); \
-})
-
-/**
- *  Generates a failure with the provided @c __description if the expression @c __a1 evaluates to
- *  @c YES.
- *
- *  @param __a1          The expression that should be evaluated.
- *  @param __description Description to print if @c __a1 evaluates to @c NO. May be a format
- *                       string, in which case the variable args will be required.
- *  @param ...           Variable args for @c __description if it is a format string.
- */
-#define GREYAssertFalse(__a1, __description, ...) \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  NSString *timeoutString__ = @"Couldn't assert that (" #__a1 ") is false."; \
-  I_GREYWaitForIdle(timeoutString__); \
-  I_GREYAssertFalse((__a1), (__description), ##__VA_ARGS__); \
-})
-
-/**
- *  Generates a failure with the provided @c __description if the expression @c __a1 is @c nil.
- *
- *  @param __a1          The expression that should be evaluated.
- *  @param __description Description to print if @c __a1 is @c nil. May be a format
- *                       string, in which case the variable args will be required.
- *  @param ...           Variable args for @c __description if it is a format string.
- */
-#define GREYAssertNotNil(__a1, __description, ...) \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  NSString *timeoutString__ = @"Couldn't assert that (" #__a1 ") is not nil."; \
-  I_GREYWaitForIdle(timeoutString__); \
-  I_GREYAssertNotNil((__a1), (__description), ##__VA_ARGS__); \
-})
-
-/**
- *  Generates a failure with the provided @c __description if the expression @c __a1 is not @c nil.
- *
- *  @param __a1          The expression that should be evaluated.
- *  @param __description Description to print if @c __a1 is not @c nil. May be a format
- *                       string, in which case the variable args will be required.
- *  @param ...           Variable args for @c __description if it is a format string.
- */
-#define GREYAssertNil(__a1, __description, ...) \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  NSString *timeoutString__ = @"Couldn't assert that (" #__a1 ") is nil."; \
-  I_GREYWaitForIdle(timeoutString__); \
-  I_GREYAssertNil((__a1), (__description), ##__VA_ARGS__); \
-})
-
-/**
- *  Generates a failure with the provided @c __description if the expression @c __a1 and
- *  the expression @c __a2 are not equal.
- *  @c __a1 and @c __a2 must be scalar types.
- *
- *  @param __a1          The left hand scalar value on the equality operation.
- *  @param __a2          The right hand scalar value on the equality operation.
- *  @param __description Description to print if @c __a1 and @c __a2 are not equal. May be a format
- *                       string, in which case the variable args will be required.
- *  @param ...           Variable args for @c __description if it is a format string.
- */
-#define GREYAssertEqual(__a1, __a2, __description, ...) \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  NSString *timeoutString__ = @"Couldn't assert that (" #__a1 ") and (" #__a2 ") are equal."; \
-  I_GREYWaitForIdle(timeoutString__); \
-  I_GREYAssertEqual((__a1), (__a2), (__description), ##__VA_ARGS__); \
-})
-
-/**
- *  Generates a failure with the provided @c __description if the expression @c __a1 and
- *  the expression @c __a2 are equal.
- *  @c __a1 and @c __a2 must be scalar types.
- *
- *  @param __a1          The left hand scalar value on the equality operation.
- *  @param __a2          The right hand scalar value on the equality operation.
- *  @param __description Description to print if @c __a1 and @c __a2 are equal. May be a format
- *                       string, in which case the variable args will be required.
- *  @param ...           Variable args for @c __description if it is a format string.
- */
-#define GREYAssertNotEqual(__a1, __a2, __description, ...) \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  NSString *timeoutString__ = \
-      @"Couldn't assert that (" #__a1 ") and (" #__a2 ") are not equal."; \
-  I_GREYWaitForIdle(timeoutString__); \
-  I_GREYAssertNotEqual((__a1), (__a2), (__description), ##__VA_ARGS__); \
-})
-
-/**
- *  Generates a failure with the provided @c __description if the expression @c __a1 and
- *  the expression @c __a2 are not equal.
- *  @c __a1 and @c __a2 must be descendants of NSObject and will be compared with method isEqual.
- *
- *  @param __a1          The left hand object on the equality operation.
- *  @param __a2          The right hand object on the equality operation.
- *  @param __description Description to print if @c __a1 and @c __a2 are not equal. May be a format
- *                       string, in which case the variable args will be required.
- *  @param ...           Variable args for @c __description if it is a format string.
- */
-#define GREYAssertEqualObjects(__a1, __a2, __description, ...) \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  NSString *timeoutString__ = \
-      @"Couldn't assert that (" #__a1 ") and (" #__a2 ") are equal objects."; \
-  I_GREYWaitForIdle(timeoutString__); \
-  I_GREYAssertEqualObjects((__a1), (__a2), __description, ##__VA_ARGS__); \
-})
-
-/**
- *  Generates a failure with the provided @c __description if the expression @c __a1 and
- *  the expression @c __a2 are equal.
- *  @c __a1 and @c __a2 must be descendants of NSObject and will be compared with method isEqual.
- *
- *  @param __a1          The left hand object on the equality operation.
- *  @param __a2          The right hand object on the equality operation.
- *  @param __description Description to print if @c __a1 and @c __a2 are equal. May be a format
- *                       string, in which case the variable args will be required.
- *  @param ...           Variable args for @c __description if it is a format string.
- */
-#define GREYAssertNotEqualObjects(__a1, __a2, __description, ...) \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  NSString *timeoutString__ = \
-      @"Couldn't assert that (" #__a1 ") and (" #__a2 ") are not equal objects."; \
-  I_GREYWaitForIdle(timeoutString__); \
-  I_GREYAssertNotEqualObjects((__a1), (__a2), (__description), ##__VA_ARGS__); \
-})
 
 /**
  *  Generates a failure unconditionally, with the provided @c __description.
@@ -230,20 +67,6 @@ GREY_EXPORT id<GREYFailureHandler> grey_getFailureHandler(void);
   I_GREYFailWithDetails((__description), (__details), ##__VA_ARGS__); \
 })
 
-/**
- *  Generates a failure unconditionally for when the constraints for performing an action fail,
- *  with the provided @c __description and @c __details.
- *
- *  @param __description  Description to print.
- *  @param __details      The failure details. May be a format string, in which case the variable
- *                        args will be required.
- *  @param ...            Variable args for @c __description if it is a format string.
- */
-#define GREYConstraintsFailedWithDetails(__description, __details, ...)  \
-({ \
-  I_GREYSetCurrentAsFailable(); \
-  I_GREYConstraintsFailedWithDetails((__description), (__details), ##__VA_ARGS__); \
-})
 
 #pragma mark - Private Macros
 

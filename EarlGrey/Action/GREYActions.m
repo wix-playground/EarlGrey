@@ -39,19 +39,14 @@
 #import "Common/GREYScreenshotUtil.h"
 #import "Common/GREYThrowDefines.h"
 #import "Core/GREYInteraction.h"
-#import "Core/GREYKeyboard.h"
 #import "Matcher/GREYAllOf.h"
 #import "Matcher/GREYAnyOf.h"
 #import "Matcher/GREYMatcher.h"
 #import "Matcher/GREYMatchers.h"
 #import "Matcher/GREYNot.h"
-#import "Synchronization/GREYUIThreadExecutor.h"
-#import "Synchronization/GREYUIWebViewIdlingResource.h"
 
 static Class gWebAccessibilityObjectWrapperClass;
 static Class gAccessibilityTextFieldElementClass;
-// Timeout for JavaScript execution using WKWebView.
-static const CFTimeInterval kJavaScriptTimeoutSeconds = 60;
 
 @implementation GREYActions
 
@@ -293,51 +288,6 @@ static const CFTimeInterval kJavaScriptTimeoutSeconds = 60;
   return [[GREYPickerAction alloc] initWithColumn:column value:value];
 }
 
-+ (id<GREYAction>)actionForJavaScriptExecution:(NSString *)js
-                                        output:(__strong NSString **)outResult {
-  // TODO: JS Errors should be propagated up.
-  id<GREYMatcher> constraints =
-      grey_allOf(grey_not(grey_systemAlertViewShown()),
-                 grey_anyOf(grey_kindOfClass([UIWebView class]),
-                            grey_kindOfClass([WKWebView class]), nil),
-                 nil);
-  BOOL (^performBlock)(id webView, __strong NSError **errorOrNil) = ^(
-      id webView, __strong NSError **errorOrNil) {
-    if ([webView isKindOfClass:[WKWebView class]]) {
-      WKWebView *wkWebView = webView;
-      __block NSString *resultString = nil;
-      __block BOOL completionDone = NO;
-      [wkWebView evaluateJavaScript:js
-                  completionHandler:^(id result, NSError *error) {
-                    resultString = [result description];
-                    completionDone = YES;
-                  }];
-      NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:kJavaScriptTimeoutSeconds];
-      while (!completionDone && timeoutDate.timeIntervalSinceNow > 0) {
-        [[GREYUIThreadExecutor sharedInstance] drainUntilIdle];
-      }
-      if (completionDone && outResult) {
-        *outResult = resultString;
-      }
-      return completionDone;
-    } else if ([webView isKindOfClass:[UIWebView class]]) {
-      UIWebView *uiWebView = webView;
-      if (outResult) {
-        *outResult = [uiWebView stringByEvaluatingJavaScriptFromString:js];
-      } else {
-        [uiWebView stringByEvaluatingJavaScriptFromString:js];
-      }
-      // TODO: Delay should be removed once webview sync is stable.
-      [[GREYUIThreadExecutor sharedInstance] drainForTime:0.5];  // Wait for actions to register.
-      return YES;
-    }
-    return NO;
-  };
-  return [[GREYActionBlock alloc] initWithName:@"Execute JavaScript"
-                                   constraints:constraints
-                                  performBlock:performBlock];
-}
-
 + (id<GREYAction>)actionForSnapshot:(__strong UIImage **)outImage {
   GREYThrowOnNilParameter(outImage);
 
@@ -460,139 +410,11 @@ static const CFTimeInterval kJavaScriptTimeoutSeconds = 60;
   }];
 }
 
-/**
- *  Performs typing in the provided element by turning off autocorrect. In case of OS versions
- *  that provide an easy API to turn off autocorrect from the settings, we do that, else we obtain
- *  the element being typed in, and turn off autocorrect for that element while being typed on.
- *
- *  @param      text           The text to be typed.
- *  @param      firstResponder The element the action is to be performed on.
- *                             This must not be @c nil.
- *  @param[out] errorOrNil     Error that will be populated on failure. The implementing class
- *                             should handle the behavior when it is @c nil by, for example,
- *                             logging the error or throwing an exception.
- *
- *  @return @c YES if the action succeeded, else @c NO. If an action returns @c NO, it does not
- *          mean that the action was not performed at all but somewhere during the action execution
- *          the error occurred and so the UI may be in an unrecoverable state.
- */
-+ (BOOL)grey_disableAutoCorrectForDelegateAndTypeText:(NSString *)text
-                                     inFirstResponder:(id)firstResponder
-                                            withError:(__strong NSError **)errorOrNil {
-  // If you're clearing the text label or if the first responder does not have an
-  // autocorrectionType option then you do not need to have the autocorrect turned off.
-  NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"\b"];
-  if ([text stringByTrimmingCharactersInSet:set].length == 0 ||
-      ![firstResponder respondsToSelector:@selector(autocorrectionType)]) {
-    return [GREYKeyboard typeString:text
-                   inFirstResponder:firstResponder
-                              error:errorOrNil];
-  }
-
-  // Obtain the current delegate from the keyboard. This can only be called when the keyboard is
-  // up. The original delegate has to be passed here in order to change the autocorrection type
-  // since we reset the delegate in the grey_setAutocorrectionType:forIntance:
-  // withOriginalKeyboardDelegate:withKeyboardToggling method in order for the autocorrection type
-  // change to take effect.
-  BOOL toggleKeyboard = iOS8_1_OR_ABOVE();
-  id keyboardInstance = [UIKeyboardImpl sharedInstance];
-  id originalKeyboardDelegate = [keyboardInstance delegate];
-  UITextAutocorrectionType originalAutoCorrectionType =
-      [originalKeyboardDelegate autocorrectionType];
-  // For a copy of the keyboard's delegate, turn the autocorrection off. Set this copy back
-  // as the delegate.
-  if (toggleKeyboard) {
-    [keyboardInstance hideKeyboard];
-  }
-  [originalKeyboardDelegate setAutocorrectionType:UITextAutocorrectionTypeNo];
-  [keyboardInstance setDelegate:originalKeyboardDelegate];
-  if (toggleKeyboard) {
-    [keyboardInstance showKeyboard];
-  }
-  // Type the string in the delegate text field.
-  BOOL typingResult = [GREYKeyboard typeString:text
-                              inFirstResponder:firstResponder
-                                         error:errorOrNil];
-
-  // Reset the keyboard delegate's autocorrection back to the original one.
-  [originalKeyboardDelegate setAutocorrectionType:originalAutoCorrectionType];
-  [keyboardInstance setDelegate:originalKeyboardDelegate];
-
-  return typingResult;
-}
-
 #pragma mark - Package Internal
 
 + (id<GREYAction>)grey_actionForTypeText:(NSString *)text
                         atUITextPosition:(UITextPosition *)position {
-  return [GREYActionBlock actionWithName:[NSString stringWithFormat:@"Type '%@'", text]
-                             constraints:grey_not(grey_systemAlertViewShown())
-                            performBlock:^BOOL (id element, __strong NSError **errorOrNil) {
-    UIView *expectedFirstResponderView;
-    if (![element isKindOfClass:[UIView class]]) {
-      expectedFirstResponderView = [element grey_viewContainingSelf];
-    } else {
-      expectedFirstResponderView = element;
-    }
-
-    // If expectedFirstResponderView or one of its ancestors isn't the first responder, tap on
-    // it so it becomes the first responder.
-    if (![expectedFirstResponderView isFirstResponder] &&
-        ![grey_ancestor(grey_firstResponder()) matches:expectedFirstResponderView]) {
-      // Tap on the element to make expectedFirstResponderView a first responder.
-      if (![[GREYActions actionForTap] perform:element error:errorOrNil]) {
-        return NO;
-      }
-      // Wait for keyboard to show up and any other UI changes to take effect.
-      if (![GREYKeyboard waitForKeyboardToAppear]) {
-        NSString *description = @"Keyboard did not appear after tapping on element [E]. "
-            @"Are you sure that tapping on this element will bring up the keyboard?";
-        NSDictionary *glossary = @{ @"E" : [element grey_description] };
-        GREYPopulateErrorNotedOrLog(errorOrNil,
-                                    kGREYInteractionErrorDomain,
-                                    kGREYInteractionActionFailedErrorCode,
-                                    description,
-                                    glossary);
-        return NO;
-      }
-    }
-
-    // If a position is given, move the text cursor to that position.
-    id firstResponder = [[expectedFirstResponderView window] firstResponder];
-    if (position) {
-      if ([firstResponder conformsToProtocol:@protocol(UITextInput)]) {
-        UITextRange *newRange = [firstResponder textRangeFromPosition:position toPosition:position];
-        [firstResponder setSelectedTextRange:newRange];
-      } else {
-        NSString *description = @"First responder [F] of element [E] does not conform to "
-                                @"UITextInput protocol.";
-        NSDictionary *glossary = @{ @"F" : [firstResponder description],
-                                    @"E" : [expectedFirstResponderView description] };
-        GREYPopulateErrorNotedOrLog(errorOrNil,
-                                    kGREYInteractionErrorDomain,
-                                    kGREYInteractionActionFailedErrorCode,
-                                    description,
-                                    glossary);
-        return NO;
-      }
-    }
-
-    BOOL retVal;
-
-    if (iOS8_2_OR_ABOVE()) {
-      // Directly perform the typing since for iOS8.2 and above, we directly turn off Autocorrect
-      // and Predictive Typing from the settings.
-      retVal = [GREYKeyboard typeString:text inFirstResponder:firstResponder error:errorOrNil];
-    } else {
-      // Perform typing. If this is pre-iOS8.2, then we simply turn the autocorrection
-      // off the current textfield being typed in.
-      retVal = [self grey_disableAutoCorrectForDelegateAndTypeText:text
-                                                  inFirstResponder:firstResponder
-                                                         withError:errorOrNil];
-    }
-
-    return retVal;
-  }];
+	return nil;
 }
 
 @end
@@ -753,10 +575,6 @@ id<GREYAction> grey_setDate(NSDate *date) {
 
 id<GREYAction> grey_setPickerColumnToValue(NSInteger column, NSString *value) {
   return [GREYActions actionForSetPickerColumn:column toValue:value];
-}
-
-id<GREYAction> grey_javaScriptExecution(NSString *js, __strong NSString **outResult) {
-  return [GREYActions actionForJavaScriptExecution:js output:outResult];
 }
 
 id<GREYAction> grey_snapshot(__strong UIImage **outImage) {

@@ -22,41 +22,8 @@
 #import "Common/GREYAppleInternals.h"
 #import "Common/GREYFatalAsserts.h"
 #import "Common/GREYSwizzler.h"
-#import "Synchronization/GREYAppStateTracker.h"
-#import "Synchronization/GREYAppStateTrackerObject.h"
 
 @implementation UIScrollView (GREYAdditions)
-
-+ (void)load {
-  @autoreleasepool {
-    GREYSwizzler *swizzler = [[GREYSwizzler alloc] init];
-
-    SEL originalSel = @selector(_scrollViewWillBeginDragging);
-    SEL swizzledSel = @selector(greyswizzled_scrollViewWillBeginDragging);
-    BOOL swizzled = [swizzler swizzleClass:[UIScrollView class]
-                     replaceInstanceMethod:originalSel
-                                withMethod:swizzledSel];
-    GREYFatalAssertWithMessage(swizzled,
-                               @"Cannot swizzle [UIScrollView _scrollViewWillBeginDragging]");
-
-    originalSel = @selector(_scrollViewDidEndDraggingWithDeceleration:);
-    swizzledSel = @selector(greyswizzled_scrollViewDidEndDraggingWithDeceleration:);
-    swizzled = [swizzler swizzleClass:[UIScrollView class]
-                replaceInstanceMethod:originalSel
-                           withMethod:swizzledSel];
-    GREYFatalAssertWithMessage(swizzled,
-                               @"Cannot swizzle "
-                               @"[UIScrollView _scrollViewDidEndDraggingWithDeceleration:]");
-
-    originalSel = @selector(_stopScrollDecelerationNotify:);
-    swizzledSel = @selector(greyswizzled_stopScrollDecelerationNotify:);
-    swizzled = [swizzler swizzleClass:[UIScrollView class]
-                replaceInstanceMethod:originalSel
-                           withMethod:swizzledSel];
-    GREYFatalAssertWithMessage(swizzled,
-                               @"Cannot swizzle [UIScrollView _stopScrollDecelerationNotify:]");
-  }
-}
 
 - (BOOL)grey_hasScrollResistance {
   if (self.bounces) {
@@ -70,45 +37,6 @@
         ((double (*)(id, SEL))objc_msgSend)(self, NSSelectorFromString(@"_verticalVelocity"));
     return horizontalVelocity == 0 && verticalVelocity == 0;
   }
-}
-
-#pragma mark - Swizzled Implementation
-
-- (void)greyswizzled_scrollViewWillBeginDragging {
-  GREYAppStateTrackerObject *object =
-      TRACK_STATE_FOR_OBJECT(kGREYPendingUIScrollViewScrolling, self);
-  objc_setAssociatedObject(self,
-                           @selector(greyswizzled_scrollViewWillBeginDragging),
-                           object,
-                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-  INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_scrollViewWillBeginDragging));
-}
-
-- (void)greyswizzled_scrollViewDidEndDraggingWithDeceleration:(BOOL)deceleration {
-  if (!deceleration) {
-    GREYAppStateTrackerObject *object =
-        objc_getAssociatedObject(self, @selector(greyswizzled_scrollViewWillBeginDragging));
-    UNTRACK_STATE_FOR_OBJECT(kGREYPendingUIScrollViewScrolling, object);
-    objc_setAssociatedObject(self,
-                             @selector(greyswizzled_scrollViewWillBeginDragging),
-                             nil,
-                             OBJC_ASSOCIATION_ASSIGN);
-  }
-  INVOKE_ORIGINAL_IMP1(void,
-                       @selector(greyswizzled_scrollViewDidEndDraggingWithDeceleration:),
-                       deceleration);
-}
-
-- (void)greyswizzled_stopScrollDecelerationNotify:(BOOL)notify {
-  GREYAppStateTrackerObject *object =
-      objc_getAssociatedObject(self, @selector(greyswizzled_scrollViewWillBeginDragging));
-  UNTRACK_STATE_FOR_OBJECT(kGREYPendingUIScrollViewScrolling, object);
-  objc_setAssociatedObject(self,
-                           @selector(greyswizzled_scrollViewWillBeginDragging),
-                           nil,
-                           OBJC_ASSOCIATION_ASSIGN);
-
-  INVOKE_ORIGINAL_IMP1(void, @selector(greyswizzled_stopScrollDecelerationNotify:), notify);
 }
 
 @end

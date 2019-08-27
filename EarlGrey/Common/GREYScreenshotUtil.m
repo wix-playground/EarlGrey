@@ -20,7 +20,6 @@
 #import "Common/GREYFatalAsserts.h"
 #import "Common/GREYThrowDefines.h"
 #import "Provider/GREYUIWindowProvider.h"
-#import "Synchronization/GREYUIThreadExecutor.h"
 
 /**
  *  Bytes allocated per pixel for an XRGB image.
@@ -109,8 +108,6 @@ static Class gUIModalItemHostingWindowClass;
 }
 
 + (UIImage *)takeScreenshotForAppStore {
-  // Let the UI settle down before taking an image to upload to AppStore.
-  [[GREYUIThreadExecutor sharedInstance] drainUntilIdleWithTimeout:5.0];
   UIImage *screenshot = [self takeScreenshot];
 
   // Convert to XRGB as per Appstore image requirements.

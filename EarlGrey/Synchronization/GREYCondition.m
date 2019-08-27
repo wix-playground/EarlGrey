@@ -19,8 +19,6 @@
 #import "Common/GREYConstants.h"
 #import "Common/GREYDefines.h"
 #import "Common/GREYThrowDefines.h"
-#import "Synchronization/GREYRunLoopSpinner.h"
-#import "Synchronization/GREYUIThreadExecutor.h"
 
 @implementation GREYCondition {
   BOOL (^_conditionBlock)(void);
@@ -51,29 +49,7 @@
   GREYThrowOnFailedConditionWithMessage(seconds >= 0, @"timeout seconds must be >= 0.");
   GREYThrowOnFailedConditionWithMessage(interval >= 0, @"poll interval must be >= 0.");
 
-  GREYRunLoopSpinner *runLoopSpinner = [[GREYRunLoopSpinner alloc] init];
-
-  runLoopSpinner.timeout = seconds;
-  runLoopSpinner.maxSleepInterval = interval;
-
-  if (interval == 0) {
-    return [runLoopSpinner spinWithStopConditionBlock:^BOOL {
-      return _conditionBlock();
-    }];
-  } else {
-    __block CFTimeInterval nextPollTime = CACurrentMediaTime();
-
-    return [runLoopSpinner spinWithStopConditionBlock:^BOOL {
-      CFTimeInterval now = CACurrentMediaTime();
-
-      if (now >= nextPollTime) {
-        nextPollTime = now + interval;
-        return _conditionBlock();
-      } else {
-        return NO;
-      }
-    }];
-  }
+  return _conditionBlock();
 }
 
 - (NSString *)name {

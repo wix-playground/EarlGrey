@@ -32,9 +32,6 @@
 #import "Matcher/GREYAnyOf.h"
 #import "Matcher/GREYMatchers.h"
 #import "Matcher/GREYNot.h"
-#import "Synchronization/GREYAppStateTracker.h"
-#import "Synchronization/GREYUIThreadExecutor.h"
-
 /**
  *  Scroll views under web views take at least (depending on speed of execution environment) two
  *  touch points to accurately determine scroll resistance.
@@ -193,10 +190,7 @@ static const NSInteger kMinTouchPointsToDetectScrollResistance = 2;
     }
   }
   [eventGenerator endTouch];
-  // Drain the main loop to process the touch path and finish scroll bounce animation if any.
-  while ([[GREYAppStateTracker sharedInstance] currentState] & kGREYPendingUIScrollViewScrolling) {
-    [[GREYUIThreadExecutor sharedInstance] drainOnce];
-  }
+
   return !hasResistance;
 }
 

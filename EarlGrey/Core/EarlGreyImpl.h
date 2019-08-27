@@ -157,17 +157,6 @@ typedef NS_ENUM(NSInteger, GREYKeyboardDismissalErrorCode) {
  */
 - (BOOL)shakeDeviceWithError:(__strong NSError **)errorOrNil;
 
-/**
- *  Dismisses the keyboard by resigning the first responder, if any. Will populate the provided
- *  error if the first responder is not present or if the keyboard is not visible.
- *
- *  @param[out] errorOrNil Error that will be populated on failure. If @c nil, a test
- *                         failure will be reported if the dismissing fails.
- *
- *  @return @c YES if the dismissing of the keyboard was successful, @c NO otherwise.
- */
-- (BOOL)dismissKeyboardWithError:(__strong NSError **)errorOrNil;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -86,11 +86,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)startInjecting;
 
-/**
- *  Wait until the touch injection has stopped.
- */
-- (void)waitUntilAllTouchesAreDeliveredUsingInjector;
-
 @end
 
 NS_ASSUME_NONNULL_END
