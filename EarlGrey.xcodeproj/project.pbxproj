@@ -108,7 +108,6 @@
 		FD1001EE1C5B46C200B2DB0A /* UITouch+GREYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1001401C5B46C100B2DB0A /* UITouch+GREYAdditions.m */; };
 		FD1001F01C5B46C200B2DB0A /* UIView+GREYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1001421C5B46C100B2DB0A /* UIView+GREYAdditions.m */; };
 		FD1001F81C5B46C200B2DB0A /* XCTestCase+GREYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FD10014A1C5B46C100B2DB0A /* XCTestCase+GREYAdditions.m */; };
-		FD1001F91C5B46C200B2DB0A /* GREYIdlingResource.h in Headers */ = {isa = PBXBuildFile; fileRef = FD10014C1C5B46C200B2DB0A /* GREYIdlingResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD1001FA1C5B46C200B2DB0A /* GREYAssertion.h in Headers */ = {isa = PBXBuildFile; fileRef = FD10014E1C5B46C200B2DB0A /* GREYAssertion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD1001FB1C5B46C200B2DB0A /* GREYAssertionBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = FD10014F1C5B46C200B2DB0A /* GREYAssertionBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD1001FC1C5B46C200B2DB0A /* GREYAssertionBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1001501C5B46C200B2DB0A /* GREYAssertionBlock.m */; };
@@ -273,7 +272,6 @@
 		FD1001421C5B46C100B2DB0A /* UIView+GREYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GREYAdditions.m"; sourceTree = "<group>"; };
 		FD1001491C5B46C100B2DB0A /* XCTestCase+GREYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+GREYAdditions.h"; sourceTree = "<group>"; };
 		FD10014A1C5B46C100B2DB0A /* XCTestCase+GREYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+GREYAdditions.m"; sourceTree = "<group>"; };
-		FD10014C1C5B46C200B2DB0A /* GREYIdlingResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYIdlingResource.h; sourceTree = "<group>"; };
 		FD10014E1C5B46C200B2DB0A /* GREYAssertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYAssertion.h; sourceTree = "<group>"; };
 		FD10014F1C5B46C200B2DB0A /* GREYAssertionBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYAssertionBlock.h; sourceTree = "<group>"; };
 		FD1001501C5B46C200B2DB0A /* GREYAssertionBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYAssertionBlock.m; sourceTree = "<group>"; };
@@ -506,7 +504,6 @@
 			isa = PBXGroup;
 			children = (
 				FD94FDB31D0F68180021F107 /* GREYAnalyticsDelegate.h */,
-				FD10014C1C5B46C200B2DB0A /* GREYIdlingResource.h */,
 			);
 			name = AppSupport;
 			path = EarlGrey/AppSupport;
@@ -715,7 +712,6 @@
 				FD6D0B981C6D49400001EA75 /* GREYBaseAction.h in Headers */,
 				FD1001B11C5B46C200B2DB0A /* GREYActionBlock.h in Headers */,
 				FD1001BD1C5B46C200B2DB0A /* GREYScrollActionError.h in Headers */,
-				FD1001F91C5B46C200B2DB0A /* GREYIdlingResource.h in Headers */,
 				FD1001FA1C5B46C200B2DB0A /* GREYAssertion.h in Headers */,
 				FD1001FE1C5B46C200B2DB0A /* GREYAssertions.h in Headers */,
 				FDCB297F1E24656F0001557E /* GREYAssertions+Internal.h in Headers */,

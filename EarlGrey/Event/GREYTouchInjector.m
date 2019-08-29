@@ -341,4 +341,9 @@ static const NSTimeInterval kGREYTouchInjectionInterval = 1.0 / kGREYTouchInject
   return dequeuedTouchInfo;
 }
 
+- (void)dealloc
+{
+  
+}
+
 @end

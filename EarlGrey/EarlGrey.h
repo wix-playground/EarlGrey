@@ -36,7 +36,6 @@
 #import <EarlGrey/GREYActions.h>
 #import <EarlGrey/GREYBaseAction.h>
 #import <EarlGrey/GREYScrollActionError.h>
-#import <EarlGrey/GREYIdlingResource.h>
 #import <EarlGrey/GREYAssertion.h>
 #import <EarlGrey/GREYAssertionBlock.h>
 #import <EarlGrey/GREYAssertionDefines.h>

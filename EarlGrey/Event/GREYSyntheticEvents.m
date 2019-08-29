@@ -220,6 +220,9 @@ NSString *const kGREYSyntheticEventInjectionErrorDomain =
                                    deliveryTimeDeltaSinceLastTouch:0
                                                         expendable:NO];
   [_touchInjector enqueueTouchInfoForDelivery:touchInfo];
+  if (immediate) {
+    [_touchInjector waitUntilAllTouchesAreDeliveredUsingInjector];
+  }
 }
 
 /**
@@ -241,6 +244,10 @@ NSString *const kGREYSyntheticEventInjectionErrorDomain =
                                    deliveryTimeDeltaSinceLastTouch:seconds
                                                         expendable:expendable];
   [_touchInjector enqueueTouchInfoForDelivery:touchInfo];
+
+  if (immediate) {
+    [_touchInjector waitUntilAllTouchesAreDeliveredUsingInjector];
+  }
 }
 
 - (void)grey_endTouchesAtPoints:(NSArray *)points
@@ -251,6 +258,7 @@ NSString *const kGREYSyntheticEventInjectionErrorDomain =
                                                         expendable:NO];
 
   [_touchInjector enqueueTouchInfoForDelivery:touchInfo];
+  [_touchInjector waitUntilAllTouchesAreDeliveredUsingInjector];
 
   _touchInjector = nil;
 }
