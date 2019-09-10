@@ -417,7 +417,7 @@
 		FD1001781C5B46C200B2DB0A /* GREYUIWebViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYUIWebViewDelegate.m; sourceTree = "<group>"; };
 		FD1001791C5B46C200B2DB0A /* EarlGrey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EarlGrey.h; path = EarlGrey/EarlGrey.h; sourceTree = SOURCE_ROOT; };
 		FD10017E1C5B46C200B2DB0A /* GREYSyntheticEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYSyntheticEvents.h; sourceTree = "<group>"; };
-		FD10017F1C5B46C200B2DB0A /* GREYSyntheticEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYSyntheticEvents.m; sourceTree = "<group>"; };
+		FD10017F1C5B46C200B2DB0A /* GREYSyntheticEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = GREYSyntheticEvents.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		FD1001811C5B46C200B2DB0A /* GREYDefaultFailureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYDefaultFailureHandler.h; sourceTree = "<group>"; };
 		FD1001821C5B46C200B2DB0A /* GREYDefaultFailureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYDefaultFailureHandler.m; sourceTree = "<group>"; };
 		FD1001831C5B46C200B2DB0A /* GREYFailureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYFailureHandler.h; sourceTree = "<group>"; };
@@ -1086,6 +1086,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = FDE4FFA01BE831AA001C172E;

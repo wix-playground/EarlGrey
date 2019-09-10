@@ -46,7 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)takeScreenshot;
 
 /**
- *  @return The App Store and iTunes Connect friendly image of the current screen frame buffer.
+ *  @return A @c UIImage similar to -takeScreenshot method optionally including the status bar if
+ *          @includeStatusBar is @c YES.
+ *
+ *  @remark Will create a new local status bar if iOS 13+.
  */
 + (UIImage *)takeScreenshotForAppStore;
 

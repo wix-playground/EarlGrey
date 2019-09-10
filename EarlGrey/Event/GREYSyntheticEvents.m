@@ -33,11 +33,12 @@
 NSString *const kGREYSyntheticEventInjectionErrorDomain =
     @"com.google.earlgrey.SyntheticEventInjectionErrorDomain";
 
-// Timeout for waiting for rotation to start and then again waiting for app to idle after it
-// completes.
-static const CFTimeInterval kRotationTimeout = 10.0;
-
 #pragma mark - Implementation
+
+/**
+ *  Timeout for the app to idle on performing non-tactile events such as rotation or shaking.
+ */
+static const CFTimeInterval kNonTactileEventTimeout = 10.0;
 
 @implementation GREYSyntheticEvents {
   /**
@@ -51,99 +52,81 @@ static const CFTimeInterval kRotationTimeout = 10.0;
   NSValue *_lastInjectedTouchPoint;
 }
 
-+ (BOOL)rotateDeviceToOrientation:(UIDeviceOrientation)deviceOrientation
-                       errorOrNil:(__strong NSError **)errorOrNil {
-  GREYFatalAssertMainThread();
-
-  NSError *error;
-  UIDeviceOrientation initialDeviceOrientation = [[UIDevice currentDevice] orientation];
-  GREYLogVerbose(@"The current device's orientation is being rotated from %@ to: %@",
-                 NSStringFromUIDeviceOrientation(initialDeviceOrientation),
-                 NSStringFromUIDeviceOrientation(deviceOrientation));
-  BOOL success = [[GREYUIThreadExecutor sharedInstance] executeSyncWithTimeout:kRotationTimeout
-                                                                         block:^{
-    [[UIDevice currentDevice] setOrientation:deviceOrientation animated:YES];
-  } error:&error];
++ (BOOL)rotateDeviceToOrientation:(UIDeviceOrientation)deviceOrientation errorOrNil:(__strong NSError **)error {
+  __block GREYError *synchronizationError;
+  __block UIDeviceOrientation initialDeviceOrientation;
+  BOOL success = [[GREYUIThreadExecutor sharedInstance]
+      executeSyncWithTimeout:kNonTactileEventTimeout
+                       block:^{
+                         initialDeviceOrientation = [[UIDevice currentDevice] orientation];
+                         GREYLogVerbose(
+                             @"The current device's orientation is being rotated from %@ to: %@",
+                             NSStringFromUIDeviceOrientation(initialDeviceOrientation),
+                             NSStringFromUIDeviceOrientation(deviceOrientation));
+                         [[UIDevice currentDevice] setOrientation:deviceOrientation animated:YES];
+                       }
+                       error:&synchronizationError];
 
   if (!success) {
-    if (errorOrNil) {
-      *errorOrNil = error;
-    } else {
-      I_GREYFail(@"Failed to change device orientation. Error: %@",
-                 [GREYError grey_nestedDescriptionForError:error]);
+    if (error) {
+      *error = synchronizationError;
     }
     return NO;
   }
 
   // Verify that the device orientation actually changed to the requested orientation.
   __block UIDeviceOrientation currentOrientation = UIDeviceOrientationUnknown;
-  success = [[GREYUIThreadExecutor sharedInstance] executeSyncWithTimeout:kRotationTimeout
-                                                                    block:^{
-      currentOrientation = [[UIDevice currentDevice] orientation];
-  } error:&error];
-
+  success = [[GREYUIThreadExecutor sharedInstance]
+      executeSyncWithTimeout:kNonTactileEventTimeout
+                       block:^{
+                         currentOrientation = [[UIDevice currentDevice] orientation];
+                       }
+                       error:&synchronizationError];
+  
   if (!success) {
-    if (errorOrNil) {
-      *errorOrNil = error;
-    } else {
-      I_GREYFail(@"Failed to verify that the device orientation changed. Error: %@",
-                 [GREYError grey_nestedDescriptionForError:error]);
+    if (error) {
+      *error = synchronizationError;
     }
     return NO;
   } else if (currentOrientation != deviceOrientation) {
     NSString *errorDescription =
-        [NSString stringWithFormat:@"Device orientation mismatch. "
-                                   @"Before: %@. After Expected: %@. \nAfter Actual: %@.",
-                                   NSStringFromUIDeviceOrientation(initialDeviceOrientation),
-                                   NSStringFromUIDeviceOrientation(deviceOrientation),
-                                   NSStringFromUIDeviceOrientation(currentOrientation)];
-    NSError *error = GREYErrorMake(kGREYSyntheticEventInjectionErrorDomain,
-                                   kGREYOrientationChangeFailedErrorCode,
-                                   errorDescription);
-    if (errorOrNil) {
-      *errorOrNil = error;
-    } else {
-      I_GREYFail(@"%@.\nError: %@\n",
-                 errorDescription,
-                 [GREYError grey_nestedDescriptionForError:error]);
+    [NSString stringWithFormat:@"Device orientation mismatch. "
+     @"Before: %@. After Expected: %@. \nAfter Actual: %@.",
+     NSStringFromUIDeviceOrientation(initialDeviceOrientation),
+     NSStringFromUIDeviceOrientation(deviceOrientation),
+     NSStringFromUIDeviceOrientation(currentOrientation)];
+    GREYError *rotationError = GREYErrorMake(kGREYSyntheticEventInjectionErrorDomain,
+                                             kGREYOrientationChangeFailedErrorCode,
+                                             errorDescription);
+    if (error) {
+      *error = rotationError;
     }
     return NO;
   }
   return YES;
 }
 
-+ (BOOL)shakeDeviceWithError:(NSError *__strong *)errorOrNil {
-  GREYFatalAssertMainThread();
-
-  NSError *error;
-  BOOL success = [[GREYUIThreadExecutor sharedInstance] executeSyncWithTimeout:kRotationTimeout
-                                                                         block:^{
-    // Keep previous accelerometer events enabled value and force it to YES so that the shake
-    // motion is passed to the application.
++ (BOOL)shakeDeviceWithError:(__strong NSError **)error {
+  GREYError *synchronizationError;
+  void (^shakeBlock)(void) = ^{
     UIApplication *application = [UIApplication sharedApplication];
-    BKSAccelerometer *accelerometer =
-        [[application _motionEvent] valueForKey:@"_motionAccelerometer"];
-    BOOL prevValue = accelerometer.accelerometerEventsEnabled;
-    accelerometer.accelerometerEventsEnabled = YES;
+    UIWindow *keyWindow = [application keyWindow];
+    UIMotionEvent *motionEvent = [application _motionEvent];
 
-    // This behaves exactly in the same manner that UIApplication handles the simulator
-    // "Shake Gesture" menu command.
-    [application _sendMotionBegan:UIEventSubtypeMotionShake];
-    [application _sendMotionEnded:UIEventSubtypeMotionShake];
-
-    accelerometer.accelerometerEventsEnabled = prevValue;
-  } error:&error];
-
-  if (!success) {
-    if (errorOrNil) {
-      *errorOrNil = error;
-    } else {
-      I_GREYFail(@"Failed to shake device. Error: %@",
-                 [GREYError grey_nestedDescriptionForError:error]);
-    }
-    return NO;
+    [motionEvent setShakeState:1];
+    [motionEvent _setSubtype:UIEventSubtypeMotionShake];
+    [application sendEvent:motionEvent];
+    [keyWindow motionBegan:UIEventSubtypeMotionShake withEvent:motionEvent];
+    [keyWindow motionEnded:UIEventSubtypeMotionShake withEvent:motionEvent];
+  };
+  BOOL result =
+      [[GREYUIThreadExecutor sharedInstance] executeSyncWithTimeout:kNonTactileEventTimeout
+                                                              block:shakeBlock
+                                                              error:&synchronizationError];
+  if (error) {
+    *error = synchronizationError;
   }
-  return YES;
+  return result;
 }
 
 + (void)touchAlongPath:(NSArray *)touchPath

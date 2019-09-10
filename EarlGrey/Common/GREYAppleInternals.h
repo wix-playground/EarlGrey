@@ -121,27 +121,45 @@ IOHIDEventRef IOHIDEventCreateDigitizerFingerEvent(CFAllocatorRef allocator,
 @end
 
 /**
- *  A private class that represents backboard services accelerometer.
- */
-@interface BKSAccelerometer : NSObject
-/**
- *  Enable or disable accelerometer events.
- */
-@property(nonatomic) BOOL accelerometerEventsEnabled;
-@end
-
-/**
  *  A private class that represents motion related events. This is sent to UIApplication whenever a
  *  motion occurs.
  */
-@interface UIMotionEvent : NSObject {
-  // The motion accelerometer of the event.
-  BKSAccelerometer *_motionAccelerometer;
-}
+@interface UIMotionEvent : UIEvent
+
+/**
+ *  Modify the _shakeState ivar inside motion event.
+ *
+ *  shakeState Set as true for 1 being passed. All other values set to false.
+ */
+- (void)setShakeState:(int)shakeState;
+
+/**
+ *  Sets the subtype for the motion event.
+ *
+ *  eventSubType The UIEventSubtype for the motion event.
+ */
+- (void)_setSubtype:(int)eventSubType;
 @end
 
+#if defined(__IPHONE_13_0)
+
+@interface UIStatusBarManager (GREYExposed)
+/**
+ *  A private method to create a single status bar for the window.
+ */
+- (id)createLocalStatusBar;
+@end
+
+#endif
+
 @interface UIApplication (GREYExposed)
+/**
+ *  @return @c YES if a system alert is being shown, @c NO otherwise.
+ */
 - (BOOL)_isSpringBoardShowingAnAlert;
+/**
+ *  @return The UIWindow for the status bar.
+ */
 - (UIWindow *)statusBarWindow;
 /**
  *  Changes the main runloop to run in the specified mode, pushing it to the top of the stack of
