@@ -14,55 +14,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# Download Fishhook in the EarlGrey directory in the fishhook/ directory.
-obtain_fishhook() {
-  # Set the current branch, commit or tag of Fishhook to use.
-  readonly FISHHOOK_VERSION="0.2"
-  # URL for Fishhook to be downloaded from.
-  readonly FISHHOOK_URL="https://github.com/facebook/fishhook/archive/${FISHHOOK_VERSION}.zip"
-  echo "Obtaining the fishhook dependency."
-
-  # Git Clone Fishhook. Make sure the destination folder is called “fishhook”.
-  if [[ -d "${EARLGREY_DIR}/fishhook" ]]; then
-    echo "The fishhook directory is already present at $EARLGREY_DIR/fishhook." \
-    "If you experience issues with running EarlGrey then please remove" \
-    "this directory and run this script again."
-  else
-    # Download the required fishhook version.
-    err_str="There was an error downloading fishhook."
-    err_str+="Please check if you are having problems with your connection."
-    run_command err_str curl -LOk --fail ${FISHHOOK_URL}
-
-    if [[ ! -f "${FISHHOOK_VERSION}.zip" ]]; then
-      echo "The fishhook zip file downloaded seems to have the incorrect" \
-      "version. Please download directly from $FISHHOOK_URL and check" \
-      "if there are any issues." >&2
-      exit 1
-    fi
-
-    # Unzip the downloaded .zip file and rename the directory to fishhook/
-    err_str="There was an issue while unzipping the Fishhook zip file."
-    err_str+="Please ensure if it unzips manually since it might be corrupt."
-    run_command err_str unzip ${FISHHOOK_VERSION}.zip > /dev/null
-
-    if [[ ! -d "fishhook-${FISHHOOK_VERSION}" ]]; then
-      echo "The correct fishhook version was not unzipped. Please check if" \
-      "fishhook-$FISHHOOK_VERSION exists in the EarlGrey Directory."
-      exit 1
-    fi
-
-    mv fishhook-${FISHHOOK_VERSION} "${EARLGREY_DIR}/fishhook/"
-    if [[ $? != 0 ]]; then
-      echo "There was an issue moving Fishhook as per" \
-      "the EarlGrey specification." >&2
-      exit 1
-    fi
-
-    rm ${FISHHOOK_VERSION}.zip
-    echo "Fishhook downloaded at $EARLGREY_DIR/fishhook"
-  fi
-}
-
 # Download the OCHamcrest IOS framework and rename the files to
 # remove the 'IOS' moniker from it.
 obtain_ochamcrest() {
@@ -197,7 +148,6 @@ echo "Changing into EarlGrey Directory"
 # Change Directory to the directory that contains EarlGrey.
 pushd "${EARLGREY_SCRIPT_DIR}" >> /dev/null
 
-obtain_fishhook
 obtain_ochamcrest
 obtain_ocmock
 
