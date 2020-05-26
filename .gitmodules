@@ -1,3 +1,6 @@
 [submodule "fishhook"]
 	path = fishhook
 	url = https://LeoNatan@github.com/facebook/fishhook.git
+[submodule "DTXObjectiveCHelpers"]
+	path = DTXObjectiveCHelpers
+	url = https://github.com/wix/DTXObjectiveCHelpers.git

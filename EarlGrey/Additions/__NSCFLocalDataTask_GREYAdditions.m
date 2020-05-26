@@ -26,7 +26,9 @@
 #import "Synchronization/GREYAppStateTracker.h"
 #import "Synchronization/GREYAppStateTrackerObject.h"
 
-@implementation __NSCFLocalDataTask_GREYAdditions
+#import "DTXSwizzlingHelper.h"
+
+@implementation NSURLSessionTask (GREY_DTX_Additions)
 
 + (void)load {
   @autoreleasepool {
@@ -36,23 +38,11 @@
     // swizzle __NSCFLocalDataTask it works on iOS 7.0 and 8.0. This is possibly because
     // __NSCFLocalDataTask is some kind of the internal class in use for iOS 7.0.
     Class class = NSClassFromString(@"__NSCFLocalDataTask");
-    [GREYObjcRuntime addInstanceMethodToClass:class
-                                 withSelector:@selector(grey_track)
-                                    fromClass:self];
-    [GREYObjcRuntime addInstanceMethodToClass:class
-                                 withSelector:@selector(grey_untrack)
-                                    fromClass:self];
-    [GREYObjcRuntime addInstanceMethodToClass:class
-                                 withSelector:@selector(grey_neverTrack)
-                                    fromClass:self];
-
-    GREYSwizzler *swizzler = [[GREYSwizzler alloc] init];
-    IMP newImplementation = [self instanceMethodForSelector:@selector(greyswizzled_resume)];
-    BOOL swizzleSuccess = [swizzler swizzleClass:class
-                               addInstanceMethod:@selector(greyswizzled_resume)
-                              withImplementation:newImplementation
-                    andReplaceWithInstanceMethod:@selector(resume)];
-    GREYFatalAssertWithMessage(swizzleSuccess, @"Could not swizzle resume in %@", class);
+    NSError* error;
+    DTXSwizzleMethod(class, @selector(resume), @selector(__earlgrey_resume), &error);
+    GREYFatalAssertWithMessage(error == nil, @"Could not swizzle resume in %@", class);
+    DTXSwizzleMethod(class, NSSelectorFromString(@"connection:didFinishLoadingWithError:"), @selector(__earlgrey_sync_connection:didFinishLoadingWithError:), &error);
+    GREYFatalAssertWithMessage(error == nil, @"Could not swizzle connection:didFinishLoadingWithError: in %@", class);
   }
 }
 
@@ -95,14 +85,22 @@
 
 #pragma mark - Swizzled Implementations
 
-- (void)greyswizzled_resume {
+- (void)__earlgrey_resume {
   // Note: since this method is added at runtime into __NSCFLocalDataTask class, self is not an
   // instance of this class but of __NSCFLocalDataTask class.
   id task = self;
   if ([[task currentRequest].URL grey_shouldSynchronize]) {
     [task grey_track];
   }
-  INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_resume));
+	
+  [self __earlgrey_resume];
+}
+
+- (void)__earlgrey_sync_connection:(id)arg1 didFinishLoadingWithError:(id)arg2
+{
+  [self __earlgrey_sync_connection:arg1 didFinishLoadingWithError:arg2];
+  
+  [self grey_untrack];
 }
 
 @end

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  default EarlGrey tracks all URLs. To change this behavior, add blacklisted URL regex's to
  *  @c GREYConfiguration with key @c kGREYConfigKeyURLBlacklistRegex.
  */
-@interface __NSCFLocalDataTask_GREYAdditions : NSObject
+@interface NSURLSessionTask (GREY_DTX_Additions)
 
 /**
  *  Tracks the network task so that EarlGrey waits for its completion.

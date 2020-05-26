@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		02559E992147133F0087CD4F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02559E982147133F0087CD4F /* WebKit.framework */; };
+		39E91BFA247D17C10099F8F3 /* DTXSwizzlingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E91BF9247D17C10099F8F3 /* DTXSwizzlingHelper.h */; };
 		3F38EF201F20269700EBDFFC /* GREYObjectDeallocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F38EF1E1F20269700EBDFFC /* GREYObjectDeallocationTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		3F38EF211F20269700EBDFFC /* GREYObjectDeallocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F38EF1F1F20269700EBDFFC /* GREYObjectDeallocationTracker.m */; };
 		3F5122141EE1D37E0000CC56 /* GREYTraversal.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F51220E1EE1D37E0000CC56 /* GREYTraversal.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -254,6 +255,7 @@
 
 /* Begin PBXFileReference section */
 		02559E982147133F0087CD4F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		39E91BF9247D17C10099F8F3 /* DTXSwizzlingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTXSwizzlingHelper.h; path = DTXObjectiveCHelpers/DTXSwizzlingHelper.h; sourceTree = "<group>"; };
 		3F38EF1E1F20269700EBDFFC /* GREYObjectDeallocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYObjectDeallocationTracker.h; sourceTree = "<group>"; };
 		3F38EF1F1F20269700EBDFFC /* GREYObjectDeallocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYObjectDeallocationTracker.m; sourceTree = "<group>"; };
 		3F51220E1EE1D37E0000CC56 /* GREYTraversal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GREYTraversal.h; path = EarlGrey/Traversal/GREYTraversal.h; sourceTree = SOURCE_ROOT; };
@@ -334,7 +336,7 @@
 		FD10011A1C5B46C100B2DB0A /* GREYTapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYTapper.h; sourceTree = "<group>"; };
 		FD10011B1C5B46C100B2DB0A /* GREYTapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYTapper.m; sourceTree = "<group>"; };
 		FD10011D1C5B46C100B2DB0A /* __NSCFLocalDataTask_GREYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = __NSCFLocalDataTask_GREYAdditions.h; sourceTree = "<group>"; };
-		FD10011E1C5B46C100B2DB0A /* __NSCFLocalDataTask_GREYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = __NSCFLocalDataTask_GREYAdditions.m; sourceTree = "<group>"; };
+		FD10011E1C5B46C100B2DB0A /* __NSCFLocalDataTask_GREYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = __NSCFLocalDataTask_GREYAdditions.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		FD1001211C5B46C100B2DB0A /* _UIModalItemsPresentingViewController_GREYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _UIModalItemsPresentingViewController_GREYAdditions.h; sourceTree = "<group>"; };
 		FD1001221C5B46C100B2DB0A /* _UIModalItemsPresentingViewController_GREYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _UIModalItemsPresentingViewController_GREYAdditions.m; sourceTree = "<group>"; };
 		FD1001231C5B46C100B2DB0A /* CAAnimation+GREYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+GREYAdditions.h"; sourceTree = "<group>"; };
@@ -901,6 +903,7 @@
 		FDE4FFA01BE831AA001C172E = {
 			isa = PBXGroup;
 			children = (
+				39E91BF9247D17C10099F8F3 /* DTXSwizzlingHelper.h */,
 				FD1000EA1C5B466F00B2DB0A /* EarlGrey */,
 				FD06C6751BECAE6A009032A5 /* Frameworks */,
 				FDE401021BE83859001C172E /* Dependencies */,
@@ -1016,6 +1019,7 @@
 				FD3CBAF91EDF79BA002FCB66 /* GREYAppleInternals.h in Headers */,
 				7C32F6FD1E258E7200B00610 /* GREYError+Internal.h in Headers */,
 				7CFDF8E81DBBD5FC00CAADB3 /* GREYFailureFormatter.h in Headers */,
+				39E91BFA247D17C10099F8F3 /* DTXSwizzlingHelper.h in Headers */,
 				7CFDF8EA1DBBD5FC00CAADB3 /* GREYLogger.h in Headers */,
 				597E02D21D55AC520052A8D1 /* GREYSwizzler.h in Headers */,
 				7CFDF8EC1DBBD5FC00CAADB3 /* GREYObjectFormatter.h in Headers */,
