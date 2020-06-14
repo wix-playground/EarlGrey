@@ -16,7 +16,6 @@
 
 #import "Common/GREYFailureFormatter.h"
 
-#import "Additions/XCTestCase+GREYAdditions.h"
 #import "Common/GREYConfiguration.h"
 #import "Common/GREYElementHierarchy.h"
 #import "Common/GREYError+Internal.h"
@@ -44,7 +43,7 @@
                     errorDescription:errorDescription];
 }
 
-+ (NSString *)formatFailureForTestCase:(XCTestCase *)testCase
++ (NSString *)formatFailureForTestCase:(id)testCase
                           failureLabel:(NSString *)failureLabel
                            failureName:(NSString *)failureName
                               filePath:(NSString *)filePath
@@ -66,8 +65,6 @@
                                      nil,
                                      stackTrace);
 
-  error.testCaseClassName = [testCase grey_testClassName];
-  error.testCaseMethodName = [testCase grey_testMethodName];
   error.appScreenshots = appScreenshots;
 
   NSArray *excluding = @[ kErrorFilePathKey, kErrorLineKey, kErrorDescriptionGlossaryKey ];

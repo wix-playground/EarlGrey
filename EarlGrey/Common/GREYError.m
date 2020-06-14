@@ -17,7 +17,6 @@
 #import "Common/GREYError.h"
 
 #import "Additions/NSError+GREYAdditions.h"
-#import "Additions/XCTestCase+GREYAdditions.h"
 #import "Common/GREYConfiguration.h"
 #import "Common/GREYElementHierarchy.h"
 #import "Common/GREYError+Internal.h"
@@ -93,17 +92,15 @@ GREYError *I_GREYErrorMake(NSString *domain,
   return [self initWithDomain:domain
                          code:code
                      userInfo:dict
-                     testCase:[XCTestCase grey_currentTestCase]];
+                     testCase:nil];
 }
 
 - (instancetype)initWithDomain:(NSString *)domain
                           code:(NSInteger)code
                       userInfo:(NSDictionary *)dict
-                      testCase:(XCTestCase *)testCase {
+                      testCase:(id)testCase {
   self = [super initWithDomain:domain code:code userInfo:dict];
   if (self) {
-    _testCaseClassName = [testCase grey_testClassName];
-    _testCaseMethodName = [testCase grey_testMethodName];
   }
   return self;
 }
@@ -155,7 +152,7 @@ GREYError *I_GREYErrorMake(NSString *domain,
 + (instancetype)errorWithDomain:(NSString *)domain
                            code:(NSInteger)code
                        userInfo:(NSDictionary *)dict
-                       testCase:(XCTestCase *)testCase {
+                       testCase:(id)testCase {
   return [self errorWithDomain:domain code:code userInfo:dict testCase:testCase];
 }
 

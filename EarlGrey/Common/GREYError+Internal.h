@@ -23,8 +23,6 @@
 
 #import "Common/GREYError.h"
 
-@class XCTestCase;
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -108,12 +106,12 @@ GREY_EXTERN NSString *const kErrorDescriptionGlossaryKey;
 - (instancetype)initWithDomain:(NSString *)domain
                           code:(NSInteger)code
                       userInfo:(NSDictionary *)dict
-                      testCase:(XCTestCase *)testCase;
+                      testCase:(nullable id)testCase;
 
 + (instancetype)errorWithDomain:(NSString *)domain
                            code:(NSInteger)code
                        userInfo:(NSDictionary *)dict
-                       testCase:(XCTestCase *)testCase;
+                       testCase:(nullable id)testCase;
 
 @end
 

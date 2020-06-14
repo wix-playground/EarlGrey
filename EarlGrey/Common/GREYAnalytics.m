@@ -16,11 +16,8 @@
 
 #import "Common/GREYAnalytics.h"
 
-#import <XCTest/XCTest.h>
-
 #import "Additions/NSString+GREYAdditions.h"
 #import "Additions/NSURL+GREYAdditions.h"
-#import "Additions/XCTestCase+GREYAdditions.h"
 #import "Common/GREYAnalyticsDelegate.h"
 #import "Common/GREYConfiguration.h"
 #import "Common/GREYLogger.h"
@@ -66,20 +63,12 @@ static NSString *const kTrackingEndPoint = @"https://ssl.google-analytics.com/co
   if (self) {
     _delegate = nil;
     _earlgreyWasCalledInXCTestContext = NO;
-    // Register as an observer for kGREYXCTestCaseInstanceDidTearDown.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(grey_testCaseInstanceDidTearDown)
-                                                 name:kGREYXCTestCaseInstanceDidTearDown
-                                               object:nil];
   }
   return self;
 }
 
 - (void)didInvokeEarlGrey {
   // Track only if EarlGrey is called in the context of a test case.
-  if ([XCTestCase grey_currentTestCase]) {
-    _earlgreyWasCalledInXCTestContext = YES;
-  }
 }
 
 - (void)setDelegate:(id<GREYAnalyticsDelegate>)delegate {
@@ -155,40 +144,5 @@ static NSString *const kTrackingEndPoint = @"https://ssl.google-analytics.com/co
 }
 
 #pragma mark - Private
-
-/**
- *  Usage data is sent via Google Analytics indicating completion of a test case, if a delegate is
- *  specified it is invoked to handle the analytics instead.
- *  EarlGrey uses Google Analytics's event tracking with *anonymized* bundle ID (md5) as the
- *  category and "TestCase_{x}" as the sub-category where 'x' is the current test case count.
- */
-- (void)grey_testCaseInstanceDidTearDown {
-  if (_earlgreyWasCalledInXCTestContext) {
-    // Reset var to track multiple test case invocations.
-    _earlgreyWasCalledInXCTestContext = NO;
-
-    if (GREY_CONFIG_BOOL(kGREYConfigKeyAnalyticsEnabled)) {
-      NSString *bundleIDMD5 = [[[NSBundle mainBundle] bundleIdentifier] grey_md5String];
-      if (!bundleIDMD5) {
-        // If bundle ID is not available we use a placeholder.
-        bundleIDMD5 = @"<Missing Bundle ID>";
-      }
-      XCTestCase *testCase = [XCTestCase grey_currentTestCase];
-      NSString *testCaseMD5 =
-          [[NSString stringWithFormat:@"%@::%@",
-                                      [testCase grey_testClassName],
-                                      [testCase grey_testMethodName]] grey_md5String];
-      NSString *action = [NSString stringWithFormat:@"TestCase_%@", testCaseMD5];
-      NSString *clientID = [[NSUUID UUID] UUIDString];
-      NSUInteger testCaseCount = [[XCTestSuite defaultTestSuite] testCaseCount];
-      NSString *value = [NSString stringWithFormat:@"%lu", (unsigned long)testCaseCount];
-      [self.delegate trackEventWithTrackingID:kGREYAnalyticsTrackingID
-                                     clientID:clientID
-                                     category:bundleIDMD5
-                                       action:action
-                                        value:value];
-    }
-  }
-}
 
 @end

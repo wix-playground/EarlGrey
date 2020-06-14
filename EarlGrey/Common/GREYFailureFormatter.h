@@ -19,7 +19,6 @@
 #import <EarlGrey/GREYDefines.h>
 
 @class GREYError;
-@class XCTestCase;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -80,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Formatted error message string.
  */
-+ (NSString *)formatFailureForTestCase:(XCTestCase *)testCase
++ (NSString *)formatFailureForTestCase:(nullable id)testCase
                           failureLabel:(NSString *)failureLabel
                            failureName:(NSString *)failureName
                               filePath:(NSString *)filePath

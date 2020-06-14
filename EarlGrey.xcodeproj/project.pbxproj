@@ -61,7 +61,6 @@
 		597E02EF1D55AD6D0052A8D1 /* UIViewController+GREYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = FD1001431C5B46C100B2DB0A /* UIViewController+GREYAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		597E02F01D55AD6D0052A8D1 /* UIWebView+GREYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = FD1001451C5B46C100B2DB0A /* UIWebView+GREYAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		597E02F11D55AD6D0052A8D1 /* UIWindow+GREYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = FD1001471C5B46C100B2DB0A /* UIWindow+GREYAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		597E02F21D55AD6D0052A8D1 /* XCTestCase+GREYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = FD1001491C5B46C100B2DB0A /* XCTestCase+GREYAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		597E02F31D55AD6D0052A8D1 /* UIGestureRecognizer+GREYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 61156A4F1D1B2AC1000013C7 /* UIGestureRecognizer+GREYAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		597E02F51D55AD8B0052A8D1 /* GREYSyntheticEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = FD10017E1C5B46C200B2DB0A /* GREYSyntheticEvents.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		597E02F61D55ADBE0052A8D1 /* GREYNSURLConnectionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = FD1001731C5B46C200B2DB0A /* GREYNSURLConnectionDelegate.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -153,7 +152,6 @@
 		FD1001F21C5B46C200B2DB0A /* UIViewController+GREYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1001441C5B46C100B2DB0A /* UIViewController+GREYAdditions.m */; };
 		FD1001F41C5B46C200B2DB0A /* UIWebView+GREYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1001461C5B46C100B2DB0A /* UIWebView+GREYAdditions.m */; };
 		FD1001F61C5B46C200B2DB0A /* UIWindow+GREYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1001481C5B46C100B2DB0A /* UIWindow+GREYAdditions.m */; };
-		FD1001F81C5B46C200B2DB0A /* XCTestCase+GREYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FD10014A1C5B46C100B2DB0A /* XCTestCase+GREYAdditions.m */; };
 		FD1001F91C5B46C200B2DB0A /* GREYIdlingResource.h in Headers */ = {isa = PBXBuildFile; fileRef = FD10014C1C5B46C200B2DB0A /* GREYIdlingResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD1001FA1C5B46C200B2DB0A /* GREYAssertion.h in Headers */ = {isa = PBXBuildFile; fileRef = FD10014E1C5B46C200B2DB0A /* GREYAssertion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD1001FB1C5B46C200B2DB0A /* GREYAssertionBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = FD10014F1C5B46C200B2DB0A /* GREYAssertionBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -225,7 +223,6 @@
 		FD1002561C5B470000B2DB0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD06C66F1BECAD9B009032A5 /* Foundation.framework */; };
 		FD1002571C5B470A00B2DB0A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD06C66B1BECAD8B009032A5 /* CoreFoundation.framework */; };
 		FD1002581C5B471200B2DB0A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD06C66C1BECAD8B009032A5 /* CoreGraphics.framework */; };
-		FD10025A1C5B472C00B2DB0A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1002591C5B472C00B2DB0A /* IOKit.framework */; };
 		FD10025B1C5B473400B2DB0A /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6160601BF2C97800722593 /* OCHamcrest.framework */; };
 		FD10025C1C5B489A00B2DB0A /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = FD61605D1BF2C80D00722593 /* fishhook.c */; };
 		FD1948261DA231ED00B9BA2D /* GREYStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = FD1948221DA231ED00B9BA2D /* GREYStopwatch.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -244,8 +241,6 @@
 		FD720C111CFF7E93007A0942 /* GREYRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = FD720C0F1CFF7E93007A0942 /* GREYRunLoopSpinner.m */; };
 		FDA218ED1E450A9900693978 /* GREYErrorConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = FDA218EB1E450A9900693978 /* GREYErrorConstants.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FDA218EE1E450A9900693978 /* GREYErrorConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA218EC1E450A9900693978 /* GREYErrorConstants.m */; };
-		FDB26BA31DA467E900E7B5C0 /* GREYTestCaseInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = FDB26BA11DA467E900E7B5C0 /* GREYTestCaseInvocation.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		FDB26BA41DA467E900E7B5C0 /* GREYTestCaseInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB26BA21DA467E900E7B5C0 /* GREYTestCaseInvocation.m */; };
 		FDCB297F1E24656F0001557E /* GREYAssertions+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = FDCB297E1E24656F0001557E /* GREYAssertions+Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FDCB29821E24658E0001557E /* GREYScreenshotUtil+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = FDCB29801E24658E0001557E /* GREYScreenshotUtil+Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FDCB29851E2465A20001557E /* GREYElementInteraction+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = FDCB29841E2465A20001557E /* GREYElementInteraction+Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -288,7 +283,7 @@
 		61EF44D31F070CD800CACC94 /* NSURLSession+GREYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+GREYAdditions.h"; sourceTree = "<group>"; };
 		61EF44D41F070CD800CACC94 /* NSURLSession+GREYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+GREYAdditions.m"; sourceTree = "<group>"; };
 		61FC0A051CD939C30081BDAA /* GREYAutomationSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYAutomationSetup.h; sourceTree = "<group>"; };
-		61FC0A061CD939C30081BDAA /* GREYAutomationSetup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYAutomationSetup.m; sourceTree = "<group>"; };
+		61FC0A061CD939C30081BDAA /* GREYAutomationSetup.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = GREYAutomationSetup.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		7C32F6FC1E258E3800B00610 /* GREYError+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GREYError+Internal.h"; sourceTree = "<group>"; };
 		7CA546111E24133E007EA7F6 /* GREYFailureScreenshotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYFailureScreenshotter.h; sourceTree = "<group>"; };
 		7CA546121E24133E007EA7F6 /* GREYFailureScreenshotter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYFailureScreenshotter.m; sourceTree = "<group>"; };
@@ -377,8 +372,6 @@
 		FD1001461C5B46C100B2DB0A /* UIWebView+GREYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+GREYAdditions.m"; sourceTree = "<group>"; };
 		FD1001471C5B46C100B2DB0A /* UIWindow+GREYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+GREYAdditions.h"; sourceTree = "<group>"; };
 		FD1001481C5B46C100B2DB0A /* UIWindow+GREYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+GREYAdditions.m"; sourceTree = "<group>"; };
-		FD1001491C5B46C100B2DB0A /* XCTestCase+GREYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+GREYAdditions.h"; sourceTree = "<group>"; };
-		FD10014A1C5B46C100B2DB0A /* XCTestCase+GREYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+GREYAdditions.m"; sourceTree = "<group>"; };
 		FD10014C1C5B46C200B2DB0A /* GREYIdlingResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYIdlingResource.h; sourceTree = "<group>"; };
 		FD10014E1C5B46C200B2DB0A /* GREYAssertion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYAssertion.h; sourceTree = "<group>"; };
 		FD10014F1C5B46C200B2DB0A /* GREYAssertionBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYAssertionBlock.h; sourceTree = "<group>"; };
@@ -421,7 +414,7 @@
 		FD10017E1C5B46C200B2DB0A /* GREYSyntheticEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYSyntheticEvents.h; sourceTree = "<group>"; };
 		FD10017F1C5B46C200B2DB0A /* GREYSyntheticEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = GREYSyntheticEvents.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		FD1001811C5B46C200B2DB0A /* GREYDefaultFailureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYDefaultFailureHandler.h; sourceTree = "<group>"; };
-		FD1001821C5B46C200B2DB0A /* GREYDefaultFailureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYDefaultFailureHandler.m; sourceTree = "<group>"; };
+		FD1001821C5B46C200B2DB0A /* GREYDefaultFailureHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = GREYDefaultFailureHandler.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		FD1001831C5B46C200B2DB0A /* GREYFailureHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYFailureHandler.h; sourceTree = "<group>"; };
 		FD1001841C5B46C200B2DB0A /* GREYFrameworkException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYFrameworkException.h; sourceTree = "<group>"; };
 		FD1001851C5B46C200B2DB0A /* GREYFrameworkException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYFrameworkException.m; sourceTree = "<group>"; };
@@ -462,7 +455,6 @@
 		FD1001AD1C5B46C200B2DB0A /* GREYUIThreadExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYUIThreadExecutor.m; sourceTree = "<group>"; };
 		FD1001AE1C5B46C200B2DB0A /* GREYUIWebViewIdlingResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYUIWebViewIdlingResource.h; sourceTree = "<group>"; };
 		FD1001AF1C5B46C200B2DB0A /* GREYUIWebViewIdlingResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYUIWebViewIdlingResource.m; sourceTree = "<group>"; };
-		FD1002591C5B472C00B2DB0A /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = ../../../../../../../System/Library/Frameworks/IOKit.framework; sourceTree = "<group>"; };
 		FD1948221DA231ED00B9BA2D /* GREYStopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYStopwatch.h; sourceTree = "<group>"; };
 		FD1948231DA231ED00B9BA2D /* GREYStopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYStopwatch.m; sourceTree = "<group>"; };
 		FD242E701D14B73E00046221 /* GREYTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYTestHelper.h; sourceTree = "<group>"; };
@@ -487,8 +479,6 @@
 		FD94FDB31D0F68180021F107 /* GREYAnalyticsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GREYAnalyticsDelegate.h; path = EarlGrey/Common/GREYAnalyticsDelegate.h; sourceTree = SOURCE_ROOT; };
 		FDA218EB1E450A9900693978 /* GREYErrorConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYErrorConstants.h; sourceTree = "<group>"; };
 		FDA218EC1E450A9900693978 /* GREYErrorConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYErrorConstants.m; sourceTree = "<group>"; };
-		FDB26BA11DA467E900E7B5C0 /* GREYTestCaseInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYTestCaseInvocation.h; sourceTree = "<group>"; };
-		FDB26BA21DA467E900E7B5C0 /* GREYTestCaseInvocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYTestCaseInvocation.m; sourceTree = "<group>"; };
 		FDCB297E1E24656F0001557E /* GREYAssertions+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GREYAssertions+Internal.h"; sourceTree = "<group>"; };
 		FDCB29801E24658E0001557E /* GREYScreenshotUtil+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GREYScreenshotUtil+Internal.h"; sourceTree = "<group>"; };
 		FDCB29841E2465A20001557E /* GREYElementInteraction+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GREYElementInteraction+Internal.h"; sourceTree = "<group>"; };
@@ -504,7 +494,6 @@
 				02559E992147133F0087CD4F /* WebKit.framework in Frameworks */,
 				61CBDE801D4CD85200206BF7 /* CoreData.framework in Frameworks */,
 				FD10025B1C5B473400B2DB0A /* OCHamcrest.framework in Frameworks */,
-				FD10025A1C5B472C00B2DB0A /* IOKit.framework in Frameworks */,
 				FD1002581C5B471200B2DB0A /* CoreGraphics.framework in Frameworks */,
 				FD1002571C5B470A00B2DB0A /* CoreFoundation.framework in Frameworks */,
 				FD1002561C5B470000B2DB0A /* Foundation.framework in Frameworks */,
@@ -534,7 +523,6 @@
 			children = (
 				02559E982147133F0087CD4F /* WebKit.framework */,
 				61CBDE7F1D4CD85200206BF7 /* CoreData.framework */,
-				FD1002591C5B472C00B2DB0A /* IOKit.framework */,
 				FD6160601BF2C97800722593 /* OCHamcrest.framework */,
 				FD61605B1BF2C7D100722593 /* IOKit.framework */,
 				FD06C6731BECADAD009032A5 /* UIKit.framework */,
@@ -655,8 +643,6 @@
 				FD1001461C5B46C100B2DB0A /* UIWebView+GREYAdditions.m */,
 				FD1001471C5B46C100B2DB0A /* UIWindow+GREYAdditions.h */,
 				FD1001481C5B46C100B2DB0A /* UIWindow+GREYAdditions.m */,
-				FD1001491C5B46C100B2DB0A /* XCTestCase+GREYAdditions.h */,
-				FD10014A1C5B46C100B2DB0A /* XCTestCase+GREYAdditions.m */,
 				61156A4F1D1B2AC1000013C7 /* UIGestureRecognizer+GREYAdditions.h */,
 				61156A501D1B2AC1000013C7 /* UIGestureRecognizer+GREYAdditions.m */,
 			);
@@ -702,8 +688,6 @@
 				FD1948221DA231ED00B9BA2D /* GREYStopwatch.h */,
 				FDCB29801E24658E0001557E /* GREYScreenshotUtil+Internal.h */,
 				FD1948231DA231ED00B9BA2D /* GREYStopwatch.m */,
-				FDB26BA11DA467E900E7B5C0 /* GREYTestCaseInvocation.h */,
-				FDB26BA21DA467E900E7B5C0 /* GREYTestCaseInvocation.m */,
 				FD242E701D14B73E00046221 /* GREYTestHelper.h */,
 				FD242E711D14B73E00046221 /* GREYTestHelper.m */,
 				FD1001561C5B46C200B2DB0A /* GREYAnalytics.h */,
@@ -974,7 +958,6 @@
 				D210ED8D1E6F47D100978B9E /* GREYMultiFingerSwipeAction.h in Headers */,
 				597E02CC1D55AC240052A8D1 /* GREYTapAction.h in Headers */,
 				597E030F1D55BC930052A8D1 /* GREYSlideAction.h in Headers */,
-				FDB26BA31DA467E900E7B5C0 /* GREYTestCaseInvocation.h in Headers */,
 				597E02CB1D55AC180052A8D1 /* GREYScrollAction.h in Headers */,
 				597E02CD1D55AC2B0052A8D1 /* GREYSwipeAction.h in Headers */,
 				597E030B1D55B9F60052A8D1 /* GREYPickerAction.h in Headers */,
@@ -1001,7 +984,6 @@
 				597E02F01D55AD6D0052A8D1 /* UIWebView+GREYAdditions.h in Headers */,
 				597E02F81D55AECF0052A8D1 /* UISwitch+GREYAdditions.h in Headers */,
 				597E02F11D55AD6D0052A8D1 /* UIWindow+GREYAdditions.h in Headers */,
-				597E02F21D55AD6D0052A8D1 /* XCTestCase+GREYAdditions.h in Headers */,
 				597E02FA1D55AF3C0052A8D1 /* CAAnimation+GREYAdditions.h in Headers */,
 				597E02FB1D55AF3C0052A8D1 /* CALayer+GREYAdditions.h in Headers */,
 				597E02FC1D55AF3C0052A8D1 /* CGGeometry+GREYAdditions.h in Headers */,
@@ -1130,7 +1112,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${PROJECT_DIR}\n./Scripts/setup-earlgrey.sh";
+			shellScript = "cd ${PROJECT_DIR}\n./Scripts/setup-earlgrey.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1198,13 +1180,11 @@
 				FD1001C01C5B46C200B2DB0A /* GREYScrollToContentEdgeAction.m in Sources */,
 				61EF44D61F070CD800CACC94 /* NSURLSession+GREYAdditions.m in Sources */,
 				FD242E731D14B73E00046221 /* GREYTestHelper.m in Sources */,
-				FD1001F81C5B46C200B2DB0A /* XCTestCase+GREYAdditions.m in Sources */,
 				FD1002111C5B46C200B2DB0A /* GREYVisibilityChecker.m in Sources */,
 				FD1001B81C5B46C200B2DB0A /* GREYPathGestureUtils.m in Sources */,
 				FD1001BE1C5B46C200B2DB0A /* GREYScrollActionError.m in Sources */,
 				FD1001B61C5B46C200B2DB0A /* GREYChangeStepperAction.m in Sources */,
 				FD1001E01C5B46C200B2DB0A /* NSTimer+GREYAdditions.m in Sources */,
-				FDB26BA41DA467E900E7B5C0 /* GREYTestCaseInvocation.m in Sources */,
 				FD1001BC1C5B46C200B2DB0A /* GREYScrollAction.m in Sources */,
 				FD1001F41C5B46C200B2DB0A /* UIWebView+GREYAdditions.m in Sources */,
 				FD1001CC1C5B46C200B2DB0A /* __NSCFLocalDataTask_GREYAdditions.m in Sources */,

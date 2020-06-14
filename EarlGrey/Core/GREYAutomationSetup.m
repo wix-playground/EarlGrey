@@ -16,7 +16,6 @@
 
 #import "Core/GREYAutomationSetup.h"
 
-#import <XCTest/XCTest.h>
 #include <dlfcn.h>
 #include <execinfo.h>
 #include <objc/runtime.h>
@@ -88,27 +87,6 @@ static GREYSignalHandler gPreviousSignalHandlers[kNumSignals];
                                 queue,
                                 block);
   }
-}
-@end
-
-@interface XCUIDevice (GREYExposed)
-/**
- *  Exposing method to overwrite it with our own implementation.
- */
-- (void)_silentPressButton:(XCUIDeviceButton)buttonType;
-/**
- *  Client for loading accessibility.
- */
-@property id accessibilityInterface;
-@end
-
-@implementation XCUIDevice (GREYAdditions)
-/**
- *  No-op method to prevent XCUITest from backgrounding the app when we use private API to enable
- *  accessibility.
- */
-- (void)grey_silentPressButton:(XCUIDeviceButton)buttonType {
-  // No-op because we don't want the test to background itself.
 }
 @end
 
@@ -195,9 +173,7 @@ static GREYSignalHandler gPreviousSignalHandlers[kNumSignals];
   // As part of turning on accessibility, XCUITest tries to background this process.
   // Swizzle to prevent app from being backgrounded.
   GREYSwizzler *swizzler = [[GREYSwizzler alloc] init];
-  BOOL swizzleSuccess = [swizzler swizzleClass:[XCUIDevice class]
-                         replaceInstanceMethod:@selector(_silentPressButton:)
-                                    withMethod:@selector(grey_silentPressButton:)];
+  BOOL swizzleSuccess = YES;
   GREYFatalAssertWithMessage(swizzleSuccess, @"Cannot swizzle XCUIDevice _silentPressButton:");
   swizzleSuccess =
       [swizzler swizzleClass:[NSNotificationCenter class]
@@ -212,13 +188,12 @@ static GREYSignalHandler gPreviousSignalHandlers[kNumSignals];
   if ([XCAXClientClass respondsToSelector:NSSelectorFromString(@"sharedClient")]) {
     XCAXClient = [XCAXClientClass sharedClient];
   } else {
-    XCAXClient = [[XCUIDevice sharedDevice] accessibilityInterface];
+    XCAXClient = nil;
   }
   GREYFatalAssertWithMessage(XCAXClient,
                              @"XCAXClient_iOS accessibility client/interface doesn't exist.");
   // Accessibility should be enabled...Reset swizzled implementations to original.
-  BOOL reset = [swizzler resetInstanceMethod:@selector(_silentPressButton:)
-                                       class:[XCUIDevice class]];
+  BOOL reset = YES;
   GREYFatalAssertWithMessage(reset, @"Failed to reset swizzled method _silentPressButton:");
   reset = [swizzler resetInstanceMethod:@selector(addObserverForName:object:queue:usingBlock:)
                                   class:[NSNotificationCenter class]];

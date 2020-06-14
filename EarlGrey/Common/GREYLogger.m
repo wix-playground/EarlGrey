@@ -17,7 +17,6 @@
 #import "Common/GREYLogger.h"
 
 #import "Additions/NSError+GREYAdditions.h"
-#import "Additions/XCTestCase+GREYAdditions.h"
 #import "Common/GREYError+Internal.h"
 #import "Common/GREYError.h"
 #import "Common/GREYFailureFormatter.h"

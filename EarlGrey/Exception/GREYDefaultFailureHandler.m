@@ -16,9 +16,6 @@
 
 #import "Exception/GREYDefaultFailureHandler.h"
 
-#import <XCTest/XCTest.h>
-
-#import "Additions/XCTestCase+GREYAdditions.h"
 #import "Common/GREYConfiguration.h"
 #import "Common/GREYElementHierarchy.h"
 #import "Common/GREYFailureFormatter.h"
@@ -45,9 +42,6 @@
 - (void)handleException:(GREYFrameworkException *)exception details:(NSString *)details {
   GREYThrowOnNilParameter(exception);
 
-  // Test case can be nil if EarlGrey is invoked outside the context of an XCTestCase.
-  XCTestCase *currentTestCase = [XCTestCase grey_currentTestCase];
-
   NSMutableArray *logger = [[NSMutableArray alloc] init];
   NSString *reason = exception.reason;
 
@@ -63,15 +57,14 @@
   }
 
   NSString *logMessage = [logger componentsJoinedByString:@"\n"];
-  NSString *screenshotPrefix = [NSString stringWithFormat:@"%@_%@",
-                                                          [currentTestCase grey_testClassName],
-                                                          [currentTestCase grey_testMethodName]];
+  NSString *screenshotPrefix = @"GoAwayNow";
+	
   NSDictionary *appScreenshots =
       [GREYFailureScreenshotter generateAppScreenshotsWithPrefix:screenshotPrefix
                                                          failure:exception.name];
 
   NSArray *stackTrace = [NSThread callStackSymbols];
-  NSString *log = [GREYFailureFormatter formatFailureForTestCase:currentTestCase
+  NSString *log = [GREYFailureFormatter formatFailureForTestCase:nil
                                                     failureLabel:@"Exception"
                                                      failureName:exception.name
                                                         filePath:_fileName
@@ -80,17 +73,11 @@
                                                       stackTrace:stackTrace
                                                   appScreenshots:appScreenshots
                                                           format:@"%@\n", logMessage];
-
-  if (currentTestCase) {
-    [currentTestCase grey_markAsFailedAtLine:_lineNumber
-                                      inFile:_fileName
-                                 description:log];
-  } else {
-    // Happens when exception is thrown outside a valid test context (i.e. +setUp, +tearDown, etc.)
-    [[GREYFrameworkException exceptionWithName:exception.name
-                                        reason:log
-                                      userInfo:nil] raise];
-  }
+  
+  // Happens when exception is thrown outside a valid test context (i.e. +setUp, +tearDown, etc.)
+  [[GREYFrameworkException exceptionWithName:exception.name
+                                      reason:log
+                                    userInfo:nil] raise];
 }
 
 @end
