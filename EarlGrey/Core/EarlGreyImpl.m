@@ -128,14 +128,14 @@ NSString *const kGREYKeyboardDismissalErrorDomain = @"com.google.earlgrey.Keyboa
 
 // Resets the failure handler. Must be called from main thread otherwise behavior is undefined.
 static inline void resetFailureHandler() {
-  assert([NSThread isMainThread]);
+  NSCParameterAssert([NSThread isMainThread]);
   NSMutableDictionary *TLSDict = [[NSThread mainThread] threadDictionary];
   [TLSDict setValue:[[GREYDefaultFailureHandler alloc] init] forKey:kGREYFailureHandlerKey];
 }
 
 // Gets the failure handler. Must be called from main thread otherwise behavior is undefined.
 inline id<GREYFailureHandler> grey_getFailureHandler() {
-  assert([NSThread isMainThread]);
+  NSCParameterAssert([NSThread isMainThread]);
   NSMutableDictionary *TLSDict = [[NSThread mainThread] threadDictionary];
   return [TLSDict valueForKey:kGREYFailureHandlerKey];
 }
