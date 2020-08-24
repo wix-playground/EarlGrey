@@ -553,7 +553,6 @@
 				3F5122091EE1CF2B0000CC56 /* Traversal */,
 			);
 			name = EarlGrey;
-			path = EGFramework;
 			sourceTree = "<group>";
 		};
 		FD1001001C5B46C100B2DB0A /* Action */ = {
@@ -1059,7 +1058,7 @@
 		FDE4FFA11BE831AA001C172E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "Google Inc.";
 				TargetAttributes = {
 					FD1000E81C5B466F00B2DB0A = {
@@ -1069,11 +1068,11 @@
 			};
 			buildConfigurationList = FDE4FFA41BE831AA001C172E /* Build configuration list for PBXProject "EarlGrey" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = FDE4FFA01BE831AA001C172E;
 			productRefGroup = FDE4FFAA1BE831AA001C172E /* Products */;
@@ -1280,7 +1279,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "i386 x86_64 arm64 armv7 armv7s";
 				VERSIONING_SYSTEM = "";
 				VERSION_INFO_PREFIX = "";
 				WARNING_LDFLAGS = "$(inherited)";
@@ -1325,7 +1323,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "i386 x86_64 arm64 armv7 armv7s";
 				VERSIONING_SYSTEM = "";
 				VERSION_INFO_PREFIX = "";
 				WARNING_LDFLAGS = "$(inherited)";
