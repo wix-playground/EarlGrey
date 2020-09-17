@@ -223,7 +223,6 @@
 		FD1002561C5B470000B2DB0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD06C66F1BECAD9B009032A5 /* Foundation.framework */; };
 		FD1002571C5B470A00B2DB0A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD06C66B1BECAD8B009032A5 /* CoreFoundation.framework */; };
 		FD1002581C5B471200B2DB0A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD06C66C1BECAD8B009032A5 /* CoreGraphics.framework */; };
-		FD10025B1C5B473400B2DB0A /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6160601BF2C97800722593 /* OCHamcrest.framework */; };
 		FD10025C1C5B489A00B2DB0A /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = FD61605D1BF2C80D00722593 /* fishhook.c */; };
 		FD1948261DA231ED00B9BA2D /* GREYStopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = FD1948221DA231ED00B9BA2D /* GREYStopwatch.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FD1948271DA231ED00B9BA2D /* GREYStopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1948231DA231ED00B9BA2D /* GREYStopwatch.m */; };
@@ -233,7 +232,6 @@
 		FD6D0B981C6D49400001EA75 /* GREYBaseAction.h in Headers */ = {isa = PBXBuildFile; fileRef = FD6D0B961C6D49400001EA75 /* GREYBaseAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD6D0B991C6D49400001EA75 /* GREYBaseAction.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6D0B971C6D49400001EA75 /* GREYBaseAction.m */; };
 		FD6D0BA21C6D494F0001EA75 /* GREYDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = FD6D0B9A1C6D494F0001EA75 /* GREYDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FD6D0BA41C6D494F0001EA75 /* GREYHCMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6D0B9C1C6D494F0001EA75 /* GREYHCMatcher.m */; };
 		FD6D0BA51C6D494F0001EA75 /* GREYMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = FD6D0B9D1C6D494F0001EA75 /* GREYMatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD6D0BA61C6D494F0001EA75 /* GREYNot.h in Headers */ = {isa = PBXBuildFile; fileRef = FD6D0B9E1C6D494F0001EA75 /* GREYNot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD6D0BA71C6D494F0001EA75 /* GREYNot.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6D0B9F1C6D494F0001EA75 /* GREYNot.m */; };
@@ -467,8 +465,6 @@
 		FD6D0B961C6D49400001EA75 /* GREYBaseAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYBaseAction.h; sourceTree = "<group>"; };
 		FD6D0B971C6D49400001EA75 /* GREYBaseAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYBaseAction.m; sourceTree = "<group>"; };
 		FD6D0B9A1C6D494F0001EA75 /* GREYDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYDescription.h; sourceTree = "<group>"; };
-		FD6D0B9B1C6D494F0001EA75 /* GREYHCMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYHCMatcher.h; sourceTree = "<group>"; };
-		FD6D0B9C1C6D494F0001EA75 /* GREYHCMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYHCMatcher.m; sourceTree = "<group>"; };
 		FD6D0B9D1C6D494F0001EA75 /* GREYMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYMatcher.h; sourceTree = "<group>"; };
 		FD6D0B9E1C6D494F0001EA75 /* GREYNot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYNot.h; sourceTree = "<group>"; };
 		FD6D0B9F1C6D494F0001EA75 /* GREYNot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYNot.m; sourceTree = "<group>"; };
@@ -493,7 +489,6 @@
 			files = (
 				02559E992147133F0087CD4F /* WebKit.framework in Frameworks */,
 				61CBDE801D4CD85200206BF7 /* CoreData.framework in Frameworks */,
-				FD10025B1C5B473400B2DB0A /* OCHamcrest.framework in Frameworks */,
 				FD1002581C5B471200B2DB0A /* CoreGraphics.framework in Frameworks */,
 				FD1002571C5B470A00B2DB0A /* CoreFoundation.framework in Frameworks */,
 				FD1002561C5B470000B2DB0A /* Foundation.framework in Frameworks */,
@@ -790,8 +785,6 @@
 			isa = PBXGroup;
 			children = (
 				FD6D0B9A1C6D494F0001EA75 /* GREYDescription.h */,
-				FD6D0B9B1C6D494F0001EA75 /* GREYHCMatcher.h */,
-				FD6D0B9C1C6D494F0001EA75 /* GREYHCMatcher.m */,
 				FD6D0B9D1C6D494F0001EA75 /* GREYMatcher.h */,
 				FD6D0B9E1C6D494F0001EA75 /* GREYNot.h */,
 				FD6D0B9F1C6D494F0001EA75 /* GREYNot.m */,
@@ -1169,7 +1162,6 @@
 				6171EA871D9C748600FD900E /* GREYZeroToleranceTimer.m in Sources */,
 				FD1001DE1C5B46C200B2DB0A /* NSString+GREYAdditions.m in Sources */,
 				FD1002491C5B46C200B2DB0A /* GREYNSTimerIdlingResource.m in Sources */,
-				FD6D0BA41C6D494F0001EA75 /* GREYHCMatcher.m in Sources */,
 				FD10021D1C5B46C200B2DB0A /* GREYNSURLConnectionDelegate.m in Sources */,
 				FD720C111CFF7E93007A0942 /* GREYRunLoopSpinner.m in Sources */,
 				FD1002301C5B46C200B2DB0A /* GREYAnyOf.m in Sources */,

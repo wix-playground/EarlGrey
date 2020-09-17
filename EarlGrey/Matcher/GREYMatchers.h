@@ -359,59 +359,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (id<GREYMatcher>)matcherForSwitchWithOnState:(BOOL)on;
 
 /**
- *  A Matcher for NSNumbers that matches when the examined number is within a specified @c delta
- *  from the specified value.
- *
- *  @param value The expected value of the number being matched.
- *
- *  @param delta The delta within which matches are allowed
- *
- *  @return A matcher that checks if a number is close to a specified @c value.
- */
-+ (id<GREYMatcher>)matcherForCloseTo:(double)value delta:(double)delta;
-
-/**
- *  A Matcher that matches against any object, including @c nils.
- *
- *  @return A matcher that matches any object.
- */
-+ (id<GREYMatcher>)matcherForAnything;
-
-/**
- *  A Matcher that checks if a provided object is equal to the specified @c value. The equality is
- *  determined by calling the @c isEqual: method of the object being examined. In case the @c
- *  value is @c nil, then the object itself is checked to be @c nil.
- *
- *  @param value  The value to be checked for equality. Please ensure that scalar types are
- *                passed in as boxed (object) values.
- *
- *  @return A matcher that checks if an object is equal to the provided one.
- */
-+ (id<GREYMatcher>)matcherForEqualTo:(id)value;
-
-/**
- *  A Matcher that checks if a provided object is less than a specified @c value. The comparison
- *  is made by calling the @c compare: method of the object being examined.
- *
- *  @param value The value to be compared, which should return @c NSOrderedDescending. Please
- *               ensure that scalar values are passed in as boxed (object) values.
- *
- *  @return A matcher that checks an object is lesser than another provided @c value.
- */
-+ (id<GREYMatcher>)matcherForLessThan:(id)value;
-
-/**
- *  A Matcher that checks if a provided object is greater than a specified @c value. The comparison
- *  is made by calling the @c compare: method of the object being examined.
- *
- *  @param value The value to be compared, which should return @c NSOrderedAscending. Please
- *               ensure that scalar values are passed in as boxed (object) values.
- *
- *  @return A matcher that checks an object is greater than another provided @c value.
- */
-+ (id<GREYMatcher>)matcherForGreaterThan:(id)value;
-
-/**
  *  Matcher that matches a UIScrollView scrolled to content @c edge.
  *
  *  @param edge The content edge UIScrollView should be scrolled to.
@@ -536,21 +483,6 @@ GREY_EXPORT id<GREYMatcher> grey_notNil(void);
 
 /** Shorthand for GREYMatchers::matcherForSwitchWithOnState:. */
 GREY_EXPORT id<GREYMatcher> grey_switchWithOnState(BOOL on);
-
-/** Shorthand for GREYMatchers::matcherForCloseTo:. */
-GREY_EXPORT id<GREYMatcher> grey_closeTo(double value, double delta);
-
-/** Shorthand for GREYMatchers::matcherForAnything. */
-GREY_EXPORT id<GREYMatcher> grey_anything(void);
-
-/** Shorthand for GREYMatchers::matcherForEqualTo:. */
-GREY_EXPORT id<GREYMatcher> grey_equalTo(id value);
-
-/** Shorthand for GREYMatchers::matcherForLessThan:. */
-GREY_EXPORT id<GREYMatcher> grey_lessThan(id value);
-
-/** Shorthand for GREYMatchers::matcherForGreaterThan:. */
-GREY_EXPORT id<GREYMatcher> grey_greaterThan(id value);
 
 /** Shorthand for GREYMatchers::matcherForScrolledToContentEdge:. */
 GREY_EXPORT id<GREYMatcher> grey_scrolledToContentEdge(GREYContentEdge edge);

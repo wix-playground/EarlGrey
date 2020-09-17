@@ -16,7 +16,6 @@
 
 #import "Matcher/GREYMatchers.h"
 
-#import <OCHamcrest/OCHamcrest.h>
 #import <UIKit/UIKit.h>
 #include <tgmath.h>
 
@@ -39,7 +38,6 @@
 #import "Matcher/GREYAnyOf.h"
 #import "Matcher/GREYElementMatcherBlock.h"
 #import "Matcher/GREYLayoutConstraint.h"
-#import "Matcher/GREYHCMatcher.h"
 #import "Matcher/GREYMatcher.h"
 #import "Matcher/GREYNot.h"
 #import "Provider/GREYElementProvider.h"
@@ -65,26 +63,6 @@ static const double kElementSufficientlyVisiblePercentage = 0.75;
                     [[GREYElementMatcherBlock alloc] initWithMatchesBlock:matches
                                                          descriptionBlock:describe],
                     nil);
-}
-
-+ (id<GREYMatcher>)matcherForCloseTo:(double)value delta:(double)delta {
-  return [[GREYHCMatcher alloc] initWithHCMatcher:HC_closeTo(value, delta)];
-}
-
-+ (id<GREYMatcher>)matcherForAnything {
-  return [[GREYHCMatcher alloc] initWithHCMatcher:HC_anything()];
-}
-
-+ (id<GREYMatcher>)matcherForEqualTo:(id)value {
-  return [[GREYHCMatcher alloc] initWithHCMatcher:HC_equalTo(value)];
-}
-
-+ (id<GREYMatcher>)matcherForLessThan:(id)value {
-  return [[GREYHCMatcher alloc] initWithHCMatcher:HC_lessThan(value)];
-}
-
-+ (id<GREYMatcher>)matcherForGreaterThan:(id)value {
-  return [[GREYHCMatcher alloc] initWithHCMatcher:HC_greaterThan(value)];
 }
 
 + (id<GREYMatcher>)matcherForAccessibilityLabel:(NSString *)label {
@@ -847,26 +825,6 @@ id<GREYMatcher> grey_notNil(void) {
 
 id<GREYMatcher> grey_switchWithOnState(BOOL on) {
   return [GREYMatchers matcherForSwitchWithOnState:on];
-}
-
-id<GREYMatcher> grey_closeTo(double value, double delta) {
-  return [GREYMatchers matcherForCloseTo:value delta:delta];
-}
-
-id<GREYMatcher> grey_anything(void) {
-  return [GREYMatchers matcherForAnything];
-}
-
-id<GREYMatcher> grey_equalTo(id value) {
-  return [GREYMatchers matcherForEqualTo:value];
-}
-
-id<GREYMatcher> grey_lessThan(id value) {
-  return [GREYMatchers matcherForLessThan:value];
-}
-
-id<GREYMatcher> grey_greaterThan(id value) {
-  return [GREYMatchers matcherForGreaterThan:value];
 }
 
 id<GREYMatcher> grey_scrolledToContentEdge(GREYContentEdge edge) {
