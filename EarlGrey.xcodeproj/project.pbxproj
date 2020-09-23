@@ -23,6 +23,8 @@
 /* Begin PBXBuildFile section */
 		02559E992147133F0087CD4F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02559E982147133F0087CD4F /* WebKit.framework */; };
 		39E91BFA247D17C10099F8F3 /* DTXSwizzlingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E91BF9247D17C10099F8F3 /* DTXSwizzlingHelper.h */; };
+		39F7A550251BA3AE0004F6AE /* UITextSelectionView+GREYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 39F7A54F251BA3AE0004F6AE /* UITextSelectionView+GREYAdditions.m */; };
+		39F7A552251BA3B90004F6AE /* UITextSelectionView+GREYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 39F7A551251BA3B90004F6AE /* UITextSelectionView+GREYAdditions.h */; };
 		3F38EF201F20269700EBDFFC /* GREYObjectDeallocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F38EF1E1F20269700EBDFFC /* GREYObjectDeallocationTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		3F38EF211F20269700EBDFFC /* GREYObjectDeallocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F38EF1F1F20269700EBDFFC /* GREYObjectDeallocationTracker.m */; };
 		3F5122141EE1D37E0000CC56 /* GREYTraversal.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F51220E1EE1D37E0000CC56 /* GREYTraversal.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -249,6 +251,8 @@
 /* Begin PBXFileReference section */
 		02559E982147133F0087CD4F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		39E91BF9247D17C10099F8F3 /* DTXSwizzlingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTXSwizzlingHelper.h; path = DTXObjectiveCHelpers/DTXSwizzlingHelper.h; sourceTree = "<group>"; };
+		39F7A54F251BA3AE0004F6AE /* UITextSelectionView+GREYAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextSelectionView+GREYAdditions.m"; sourceTree = "<group>"; };
+		39F7A551251BA3B90004F6AE /* UITextSelectionView+GREYAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextSelectionView+GREYAdditions.h"; sourceTree = "<group>"; };
 		3F38EF1E1F20269700EBDFFC /* GREYObjectDeallocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GREYObjectDeallocationTracker.h; sourceTree = "<group>"; };
 		3F38EF1F1F20269700EBDFFC /* GREYObjectDeallocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GREYObjectDeallocationTracker.m; sourceTree = "<group>"; };
 		3F51220E1EE1D37E0000CC56 /* GREYTraversal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GREYTraversal.h; path = EarlGrey/Traversal/GREYTraversal.h; sourceTree = SOURCE_ROOT; };
@@ -639,6 +643,8 @@
 				FD1001481C5B46C100B2DB0A /* UIWindow+GREYAdditions.m */,
 				61156A4F1D1B2AC1000013C7 /* UIGestureRecognizer+GREYAdditions.h */,
 				61156A501D1B2AC1000013C7 /* UIGestureRecognizer+GREYAdditions.m */,
+				39F7A551251BA3B90004F6AE /* UITextSelectionView+GREYAdditions.h */,
+				39F7A54F251BA3AE0004F6AE /* UITextSelectionView+GREYAdditions.m */,
 			);
 			name = Additions;
 			path = EarlGrey/Additions;
@@ -1020,6 +1026,7 @@
 				597E02DB1D55AD100052A8D1 /* GREYAppStateTracker.h in Headers */,
 				597E02DD1D55AD100052A8D1 /* GREYTimedIdlingResource.h in Headers */,
 				7CA546131E24133E007EA7F6 /* GREYFailureScreenshotter.h in Headers */,
+				39F7A552251BA3B90004F6AE /* UITextSelectionView+GREYAdditions.h in Headers */,
 				597E02DC1D55AD100052A8D1 /* GREYDispatchQueueTracker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1146,6 +1153,7 @@
 				7CA546141E24133E007EA7F6 /* GREYFailureScreenshotter.m in Sources */,
 				FD1001EA1C5B46C200B2DB0A /* UIScrollView+GREYAdditions.m in Sources */,
 				FD1002211C5B46C200B2DB0A /* GREYUIWebViewDelegate.m in Sources */,
+				39F7A550251BA3AE0004F6AE /* UITextSelectionView+GREYAdditions.m in Sources */,
 				FD1001FF1C5B46C200B2DB0A /* GREYAssertions.m in Sources */,
 				61E4E0C01D755A0D007F9EE6 /* GREYPinchAction.m in Sources */,
 				FD10024F1C5B46C200B2DB0A /* GREYTimedIdlingResource.m in Sources */,
