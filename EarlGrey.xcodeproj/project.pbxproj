@@ -1058,7 +1058,7 @@
 		FDE4FFA11BE831AA001C172E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Google Inc.";
 				TargetAttributes = {
 					FD1000E81C5B466F00B2DB0A = {
