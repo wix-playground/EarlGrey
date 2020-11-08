@@ -342,30 +342,32 @@
 }
 
 - (void)greyswizzled_setNeedsDisplay {
-	NSString* wtfff = [NSString stringWithFormat:@"setNeedsDisplay: %p (HACK)", self];
+	NSString* wtfff = [NSString stringWithFormat:@"setNeedsDisplay: <%@: %p> (HACK)", NSStringFromClass(self.class), self];
 	GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, wtfff);
 	INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_setNeedsDisplay));
 	dispatch_async(dispatch_get_main_queue(), ^ {
-	  UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
+		UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
 	});
 }
 
 - (void)greyswizzled_setNeedsLayout {
-  GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, self);
-  // Next runloop drain will perform the draw pass.
-  dispatch_async(dispatch_get_main_queue(), ^ {
-    UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
-  });
-  INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_setNeedsLayout));
+	NSString* wtfff = [NSString stringWithFormat:@"setNeedsLayout: <%@: %p> (HACK)", NSStringFromClass(self.class), self];
+	GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, wtfff);
+	// Next runloop drain will perform the draw pass.
+	dispatch_async(dispatch_get_main_queue(), ^ {
+		UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
+	});
+	INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_setNeedsLayout));
 }
 
 - (void)greyswizzled_setNeedsUpdateConstraints {
-  GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, self);
-  // Next runloop drain will perform the draw pass.
-  dispatch_async(dispatch_get_main_queue(), ^ {
-    UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
-  });
-  INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_setNeedsUpdateConstraints));
+	NSString* wtfff = [NSString stringWithFormat:@"setNeedsUpdateConstraints: <%@: %p> (HACK)", NSStringFromClass(self.class), self];
+	GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, wtfff);
+	// Next runloop drain will perform the draw pass.
+	dispatch_async(dispatch_get_main_queue(), ^ {
+		UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
+	});
+	INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_setNeedsUpdateConstraints));
 }
 
 #pragma mark - Swizzled Block based Animation

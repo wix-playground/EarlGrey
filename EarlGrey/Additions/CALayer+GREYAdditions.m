@@ -193,30 +193,33 @@
 }
 
 - (void)greyswizzled_setNeedsDisplayInRect:(CGRect)invalidRect {
-  GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, self);
-  // Next runloop drain will perform the draw pass.
-  dispatch_async(dispatch_get_main_queue(), ^{
-    UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
-  });
-  INVOKE_ORIGINAL_IMP1(void, @selector(greyswizzled_setNeedsDisplayInRect:), invalidRect);
+	NSString* wtfff = [NSString stringWithFormat:@"setNeedsDisplayInRect: <%@: %p> (HACK)", NSStringFromClass(self.class), self];
+	GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, wtfff);
+	// Next runloop drain will perform the draw pass.
+	dispatch_async(dispatch_get_main_queue(), ^{
+		UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
+	});
+	INVOKE_ORIGINAL_IMP1(void, @selector(greyswizzled_setNeedsDisplayInRect:), invalidRect);
 }
 
 - (void)greyswizzled_setNeedsDisplay {
-  GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, self);
-  // Next runloop drain will perform the draw pass.
-  dispatch_async(dispatch_get_main_queue(), ^{
-    UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
-  });
-  INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_setNeedsDisplay));
+	NSString* wtfff = [NSString stringWithFormat:@"setNeedsDisplay: <%@: %p> (HACK)", NSStringFromClass(self.class), self];
+	GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, wtfff);
+	// Next runloop drain will perform the draw pass.
+	dispatch_async(dispatch_get_main_queue(), ^{
+		UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
+	});
+	INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_setNeedsDisplay));
 }
 
 - (void)greyswizzled_setNeedsLayout {
-  GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, self);
-  // Next runloop drain will perform the layout pass.
-  dispatch_async(dispatch_get_main_queue(), ^ {
-    UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
-  });
-  INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_setNeedsLayout));
+	NSString* wtfff = [NSString stringWithFormat:@"setNeedsLayout: <%@: %p> (HACK)", NSStringFromClass(self.class), self];
+	GREYAppStateTrackerObject *object = TRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, wtfff);
+	// Next runloop drain will perform the layout pass.
+	dispatch_async(dispatch_get_main_queue(), ^ {
+		UNTRACK_STATE_FOR_OBJECT(kGREYPendingDrawLayoutPass, object);
+	});
+	INVOKE_ORIGINAL_IMP(void, @selector(greyswizzled_setNeedsLayout));
 }
 
 #pragma mark - Internal Methods Exposed For Testing
